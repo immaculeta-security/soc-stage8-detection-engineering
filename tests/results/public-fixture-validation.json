@@ -1,0 +1,20 @@
+{
+  "counts": {
+    "invalid_fixtures": 0,
+    "total_events": 72,
+    "total_fixtures": 36,
+    "valid_fixtures": 36
+  },
+  "error_categories": {},
+  "error_samples": [],
+  "expected_counts": {
+    "alert": 12,
+    "no_alert": 24
+  },
+  "input": {
+    "file_name": "public-fixtures.json",
+    "sha256": "f9c6df0810ec03fff387ecce023b8b7d31f5b79edb1379e676e063031845f02e"
+  },
+  "schema_version": "1.0",
+  "verdict": "valid"
+}

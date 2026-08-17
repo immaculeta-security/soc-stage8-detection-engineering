@@ -1,0 +1,31 @@
+{
+  "counts": {
+    "invalid_fixtures": 1,
+    "total_events": 0,
+    "total_fixtures": 1,
+    "valid_fixtures": 0
+  },
+  "error_categories": {
+    "invalid_events": 1,
+    "invalid_expected": 1
+  },
+  "error_samples": [
+    {
+      "category": "invalid_expected",
+      "detail": "expected must be alert or no_alert.",
+      "locator": "/fixtures/0/expected"
+    },
+    {
+      "category": "invalid_events",
+      "detail": "events must be a non-empty list.",
+      "locator": "/fixtures/0/events"
+    }
+  ],
+  "expected_counts": {},
+  "input": {
+    "file_name": "public-fixtures-malformed.json",
+    "sha256": "fbf59509973bdb507cf8e7f64717ba2ed24aadfa1db17877bb0801636bb5bfdc"
+  },
+  "schema_version": "1.0",
+  "verdict": "malformed_input"
+}

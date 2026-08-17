@@ -1,0 +1,835 @@
+{
+  "fixtures": [
+    {
+      "case_id": "P-DET-01",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "regsvr32.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1003.001"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 2,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "regsvr32.exe",
+          "parent_image": "services.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-02",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "rundll32.exe",
+          "parent_image": "explorer.exe",
+          "technique_id": "T1059.001"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 3,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "rundll32.exe",
+          "parent_image": "explorer.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-03",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "powershell.exe",
+          "parent_image": "wmiprvse.exe",
+          "technique_id": "T1218.011"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 4,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "powershell.exe",
+          "parent_image": "wmiprvse.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-04",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "regsvr32.exe",
+          "parent_image": "explorer.exe",
+          "technique_id": "T1105"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 5,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "regsvr32.exe",
+          "parent_image": "explorer.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-05",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "cmd.exe",
+          "parent_image": "config-agent.exe",
+          "technique_id": "T1218.011"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 2,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "cmd.exe",
+          "parent_image": "config-agent.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-06",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "cmd.exe",
+          "parent_image": "config-agent.exe",
+          "technique_id": "T1059.001"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 3,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "cmd.exe",
+          "parent_image": "config-agent.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-07",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "cmd.exe",
+          "parent_image": "winword.exe",
+          "technique_id": "T1003.001"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 4,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "cmd.exe",
+          "parent_image": "winword.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-08",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "regsvr32.exe",
+          "parent_image": "sccm-client.exe",
+          "technique_id": "T1059.003"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 5,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "regsvr32.exe",
+          "parent_image": "sccm-client.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-09",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "cmd.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1218.011"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 2,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "cmd.exe",
+          "parent_image": "services.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-10",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "cmd.exe",
+          "parent_image": "explorer.exe",
+          "technique_id": "T1003.001"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 3,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "cmd.exe",
+          "parent_image": "explorer.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-11",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "powershell.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1218.011"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 4,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "powershell.exe",
+          "parent_image": "services.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-12",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "regsvr32.exe",
+          "parent_image": "enterprise-updater.exe",
+          "technique_id": "T1059.003"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 5,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "regsvr32.exe",
+          "parent_image": "enterprise-updater.exe"
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "P-DET-13",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "python3.exe",
+          "parent_image": "winword.exe",
+          "technique_id": "T1057"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 2,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "python3.exe",
+          "parent_image": "winword.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-14",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "cmd.exe",
+          "parent_image": "config-agent.exe",
+          "technique_id": "T1033"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 3,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "cmd.exe",
+          "parent_image": "config-agent.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-15",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "python3.exe",
+          "parent_image": "config-agent.exe",
+          "technique_id": "T1033"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 4,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "python3.exe",
+          "parent_image": "config-agent.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-16",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe",
+          "technique_id": "T1016"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 5,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-17",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "python3.exe",
+          "parent_image": "enterprise-updater.exe",
+          "technique_id": "T1016"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 2,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "python3.exe",
+          "parent_image": "enterprise-updater.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-18",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "python3.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1082"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 3,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "python3.exe",
+          "parent_image": "services.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-19",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "teams.exe",
+          "parent_image": "explorer.exe",
+          "technique_id": "T1033"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 4,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "teams.exe",
+          "parent_image": "explorer.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-20",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "cmd.exe",
+          "parent_image": "enterprise-updater.exe",
+          "technique_id": "T1057"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 5,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "cmd.exe",
+          "parent_image": "enterprise-updater.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-21",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "python3.exe",
+          "parent_image": "winword.exe",
+          "technique_id": "T1082"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 2,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "python3.exe",
+          "parent_image": "winword.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-22",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "teams.exe",
+          "parent_image": "explorer.exe",
+          "technique_id": "T1057"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 3,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "teams.exe",
+          "parent_image": "explorer.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-23",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "chrome.exe",
+          "parent_image": "mshta.exe",
+          "technique_id": "T1057"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 4,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "chrome.exe",
+          "parent_image": "mshta.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-24",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe",
+          "technique_id": "T1057"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 5,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-25",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe",
+          "technique_id": "T1082"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 2,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-26",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "python3.exe",
+          "parent_image": "wmiprvse.exe",
+          "technique_id": "T1057"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 3,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "python3.exe",
+          "parent_image": "wmiprvse.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-27",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "python3.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1033"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 4,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "python3.exe",
+          "parent_image": "services.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-28",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "chrome.exe",
+          "parent_image": "wmiprvse.exe",
+          "technique_id": "T1057"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 5,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "chrome.exe",
+          "parent_image": "wmiprvse.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-29",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "rundll32.exe",
+          "parent_image": "config-agent.exe",
+          "technique_id": "T1033"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 2,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "rundll32.exe",
+          "parent_image": "config-agent.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-30",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe",
+          "technique_id": "T1082"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 3,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-31",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "python3.exe",
+          "parent_image": "sccm-client.exe",
+          "technique_id": "T1057"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 4,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "python3.exe",
+          "parent_image": "sccm-client.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-32",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "python3.exe",
+          "parent_image": "winword.exe",
+          "technique_id": "T1016"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 5,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "python3.exe",
+          "parent_image": "winword.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-33",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "cmd.exe",
+          "parent_image": "explorer.exe",
+          "technique_id": "T1033"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 2,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "cmd.exe",
+          "parent_image": "explorer.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-34",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "encoded_or_obfuscated",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "regsvr32.exe",
+          "parent_image": "sccm-client.exe",
+          "technique_id": "T1016"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 3,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "regsvr32.exe",
+          "parent_image": "sccm-client.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-35",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "svchost.exe",
+          "parent_image": "wmiprvse.exe",
+          "technique_id": "T1016"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 4,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "svchost.exe",
+          "parent_image": "wmiprvse.exe"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "P-DET-36",
+      "events": [
+        {
+          "channel": "sysmon",
+          "command_family": "native",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe",
+          "technique_id": "T1057"
+        },
+        {
+          "channel": "security",
+          "delta_seconds": 5,
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe"
+        }
+      ],
+      "expected": "no_alert"
+    }
+  ],
+  "interface_version": "2026-07",
+  "project": "SOC-A4",
+  "schema_version": "1.0"
+}
