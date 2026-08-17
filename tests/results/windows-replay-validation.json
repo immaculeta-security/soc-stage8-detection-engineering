@@ -1,0 +1,30 @@
+{
+  "counts": {
+    "invalid_lines": 0,
+    "total_lines": 250000,
+    "valid_lines": 250000
+  },
+  "error_categories": {},
+  "error_samples": [],
+  "input": {
+    "file_name": "windows-replay.jsonl",
+    "sha256": "ea7f96497f9275ccdc47fdb026480558547db5bfaa7aa8bf3a806a2bc9272838"
+  },
+  "observed": {
+    "channels": {
+      "Microsoft-Windows-Sysmon/Operational": 125000,
+      "Security": 125000
+    },
+    "event_codes": {
+      "1": 125000,
+      "4688": 125000
+    },
+    "schema_versions": {
+      "1": 83334,
+      "2": 83333,
+      "3": 83333
+    }
+  },
+  "schema_version": "1.0",
+  "verdict": "valid"
+}

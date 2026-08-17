@@ -1,0 +1,40 @@
+{
+  "counts": {
+    "invalid_lines": 2,
+    "total_lines": 3,
+    "valid_lines": 1
+  },
+  "error_categories": {
+    "invalid_json": 1,
+    "missing_fields": 1
+  },
+  "error_samples": [
+    {
+      "category": "missing_fields",
+      "detail": "channel,command_family,command_line,computer,event_code,event_id,image,parent_image,timestamp,user",
+      "line_number": 2
+    },
+    {
+      "category": "invalid_json",
+      "detail": "Column 2: Expecting property name enclosed in double quotes",
+      "line_number": 3
+    }
+  ],
+  "input": {
+    "file_name": "replay-malformed.jsonl",
+    "sha256": "03d63185dd1bf201041e8cf590edf410699c0c7b4eca9cf7ced10f28a39ca870"
+  },
+  "observed": {
+    "channels": {
+      "Microsoft-Windows-Sysmon/Operational": 1
+    },
+    "event_codes": {
+      "1": 1
+    },
+    "schema_versions": {
+      "1": 1
+    }
+  },
+  "schema_version": "1.0",
+  "verdict": "malformed_input"
+}
