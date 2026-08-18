@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="ubi-stage8-detection-regression" tests="46" failures="0" errors="0">
+  <properties>
+    <property name="behavior_policy_sha256" value="3cd4b8f5016620d0888e3bf934204e93b629c9b49213cedf8bb34dd0d9137325" />
+    <property name="mutation_fixture_sha256" value="314bce0f8300e153601eb108131a276663c7898e1cbda557dd4377fdcdd7831b" />
+    <property name="public_fixture_sha256" value="f9c6df0810ec03fff387ecce023b8b7d31f5b79edb1379e676e063031845f02e" />
+  </properties>
+  <testcase classname="component" name="public-fixture-schema-valid">
+    <system-out>stdout:
+validated fixtures=36 valid=36 invalid=0 verdict=valid
+
+detail:
+Command returned the expected exit code.</system-out>
+  </testcase>
+  <testcase classname="component" name="malformed-fixture-rejected">
+    <system-out>stdout:
+validated fixtures=1 valid=0 invalid=1 verdict=malformed_input
+
+detail:
+Command returned the expected exit code.</system-out>
+  </testcase>
+  <testcase classname="component" name="replay-smoke-valid">
+    <system-out>stdout:
+validated total=3 valid=3 invalid=0 verdict=valid
+
+detail:
+Command returned the expected exit code.</system-out>
+  </testcase>
+  <testcase classname="component" name="malformed-replay-rejected">
+    <system-out>stdout:
+validated total=3 valid=1 invalid=2 verdict=malformed_input
+
+detail:
+Command returned the expected exit code.</system-out>
+  </testcase>
+  <testcase classname="component" name="public-detection-suite">
+    <system-out>stdout:
+suite total=36 passed=36 failed=0 verdict=pass
+
+detail:
+Command returned the expected exit code.</system-out>
+  </testcase>
+  <testcase classname="component" name="mutation-detection-suite">
+    <system-out>stdout:
+suite total=4 passed=4 failed=0 verdict=pass
+
+detail:
+Command returned the expected exit code.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-01">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-02">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-03">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-04">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-05">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-06">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-07">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-08">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-09">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-10">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-11">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-12">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-13">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-14">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-15">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-16">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-17">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-18">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-19">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-20">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-21">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-22">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-23">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-24">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-25">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-26">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-27">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-28">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-29">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-30">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-31">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-32">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-33">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-34">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-35">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="public_detection" name="P-DET-36">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=[] explanation=No Sysmon process event matched the configured techniques.</system-out>
+  </testcase>
+  <testcase classname="mutation_detection" name="MUT-RENAMED-BINARY">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="mutation_detection" name="MUT-DIFFERENT-ENCODING">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="mutation_detection" name="MUT-REMOVED-COMMAND-FAMILY">
+    <system-out>detail:
+expected=alert predicted=alert status=alerted locators=['/events/0', '/events/1'] explanation=Correlated Sysmon 1 and Security 4688 process events.</system-out>
+  </testcase>
+  <testcase classname="mutation_detection" name="MUT-OUTSIDE-TIME-WINDOW">
+    <system-out>detail:
+expected=no_alert predicted=no_alert status=suppressed locators=['/events/0'] explanation=Technique matched, but no related Security 4688 event matched the process, parent and time window.</system-out>
+  </testcase>
+</testsuite>
