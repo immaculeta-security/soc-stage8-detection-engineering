@@ -1,0 +1,95 @@
+{
+  "fixtures": [
+    {
+      "case_id": "MUT-RENAMED-BINARY",
+      "events": [
+        {
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "totally-renamed-program.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1059.001",
+          "command_family": "native"
+        },
+        {
+          "channel": "Security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "totally-renamed-program.exe",
+          "parent_image": "services.exe",
+          "delta_seconds": 2
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "MUT-DIFFERENT-ENCODING",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "powershell.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1059.001",
+          "command_family": "alternate_encoding"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "powershell.exe",
+          "parent_image": "services.exe",
+          "delta_seconds": 3
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "MUT-REMOVED-COMMAND-FAMILY",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "rundll32.exe",
+          "parent_image": "explorer.exe",
+          "technique_id": "T1218.011"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "rundll32.exe",
+          "parent_image": "explorer.exe",
+          "delta_seconds": 4
+        }
+      ],
+      "expected": "alert"
+    },
+    {
+      "case_id": "MUT-OUTSIDE-TIME-WINDOW",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "powershell.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1059.001",
+          "command_family": "native"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "powershell.exe",
+          "parent_image": "services.exe",
+          "delta_seconds": 30
+        }
+      ],
+      "expected": "no_alert"
+    }
+  ]
+}

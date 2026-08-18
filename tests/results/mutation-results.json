@@ -1,0 +1,72 @@
+{
+  "inputs": {
+    "fixture": {
+      "file_name": "mutation-tests.json",
+      "sha256": "314bce0f8300e153601eb108131a276663c7898e1cbda557dd4377fdcdd7831b"
+    },
+    "policy": {
+      "file_name": "behavior-policy.json",
+      "sha256": "3cd4b8f5016620d0888e3bf934204e93b629c9b49213cedf8bb34dd0d9137325"
+    }
+  },
+  "results": [
+    {
+      "case_id": "MUT-RENAMED-BINARY",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "MUT-DIFFERENT-ENCODING",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "MUT-REMOVED-COMMAND-FAMILY",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "MUT-OUTSIDE-TIME-WINDOW",
+      "evidence_locators": [
+        "/events/0"
+      ],
+      "expected": "no_alert",
+      "explanation": "Technique matched, but no related Security 4688 event matched the process, parent and time window.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    }
+  ],
+  "schema_version": "1.0",
+  "summary": {
+    "failed": 0,
+    "passed": 4,
+    "status_counts": {
+      "alerted": 3,
+      "suppressed": 1
+    },
+    "total": 4
+  },
+  "verdict": "pass"
+}

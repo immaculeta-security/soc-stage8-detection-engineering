@@ -1,0 +1,385 @@
+{
+  "inputs": {
+    "fixture": {
+      "file_name": "public-fixtures.json",
+      "sha256": "f9c6df0810ec03fff387ecce023b8b7d31f5b79edb1379e676e063031845f02e"
+    },
+    "policy": {
+      "file_name": "behavior-policy.json",
+      "sha256": "3cd4b8f5016620d0888e3bf934204e93b629c9b49213cedf8bb34dd0d9137325"
+    }
+  },
+  "results": [
+    {
+      "case_id": "P-DET-01",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-02",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-03",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-04",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-05",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-06",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-07",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-08",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-09",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-10",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-11",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-12",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "P-DET-13",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-14",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-15",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-16",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-17",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-18",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-19",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-20",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-21",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-22",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-23",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-24",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-25",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-26",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-27",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-28",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-29",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-30",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-31",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-32",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-33",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-34",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-35",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "P-DET-36",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    }
+  ],
+  "schema_version": "1.0",
+  "summary": {
+    "failed": 0,
+    "passed": 36,
+    "status_counts": {
+      "alerted": 12,
+      "suppressed": 24
+    },
+    "total": 36
+  },
+  "verdict": "pass"
+}

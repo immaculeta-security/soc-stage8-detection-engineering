@@ -1,0 +1,78 @@
+{
+  "inputs": {
+    "fixture": {
+      "file_name": "classification-diagnostics.json",
+      "sha256": "2f4ca0f8e54816c6490afab2e83bcb294f5329aade947616366af97a0cd5927c"
+    },
+    "policy": {
+      "file_name": "behavior-policy.json",
+      "sha256": "3cd4b8f5016620d0888e3bf934204e93b629c9b49213cedf8bb34dd0d9137325"
+    }
+  },
+  "results": [
+    {
+      "case_id": "DIAG-NO-TELEMETRY",
+      "evidence_locators": [],
+      "expected": "alert",
+      "explanation": "The fixture contained no telemetry events.",
+      "matched_expectation": false,
+      "predicted": "no_alert",
+      "status": "no_telemetry"
+    },
+    {
+      "case_id": "DIAG-DECODER-FAILURE",
+      "evidence_locators": [],
+      "expected": "alert",
+      "explanation": "/events/0: missing fields event_id,image,parent_image",
+      "matched_expectation": false,
+      "predicted": "no_alert",
+      "status": "decoder_failure"
+    },
+    {
+      "case_id": "DIAG-RULE-MISS",
+      "evidence_locators": [
+        "/events/0"
+      ],
+      "expected": "alert",
+      "explanation": "Technique matched, but no related Security 4688 event matched the process, parent and time window.",
+      "matched_expectation": false,
+      "predicted": "no_alert",
+      "status": "rule_miss"
+    },
+    {
+      "case_id": "DIAG-SUPPRESSED",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "DIAG-ALERTED",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "predicted": "alert",
+      "status": "alerted"
+    }
+  ],
+  "schema_version": "1.0",
+  "summary": {
+    "failed": 3,
+    "passed": 2,
+    "status_counts": {
+      "alerted": 1,
+      "decoder_failure": 1,
+      "no_telemetry": 1,
+      "rule_miss": 1,
+      "suppressed": 1
+    },
+    "total": 5
+  },
+  "verdict": "fail"
+}
