@@ -1,4 +1,5 @@
 {
+  "engine_version": "2.0.0",
   "inputs": {
     "fixture": {
       "file_name": "public-fixtures.json",
@@ -19,6 +20,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -31,6 +34,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -43,6 +48,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -55,6 +62,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -67,6 +76,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -79,6 +90,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -91,6 +104,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -103,6 +118,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -115,6 +132,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -127,6 +146,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -139,6 +160,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -151,6 +174,8 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
@@ -160,6 +185,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -169,6 +196,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -178,6 +207,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -187,6 +218,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -196,6 +229,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -205,6 +240,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -214,6 +251,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -223,6 +262,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -232,6 +273,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -241,6 +284,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -250,6 +295,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -259,6 +306,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -268,6 +317,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -277,6 +328,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -286,6 +339,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -295,6 +350,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -304,6 +361,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -313,6 +372,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -322,6 +383,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -331,6 +394,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -340,6 +405,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -349,6 +416,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -358,6 +427,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -367,6 +438,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     }

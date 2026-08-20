@@ -1,8 +1,9 @@
 {
+  "engine_version": "2.0.0",
   "inputs": {
     "fixture": {
       "file_name": "mutation-tests.json",
-      "sha256": "314bce0f8300e153601eb108131a276663c7898e1cbda557dd4377fdcdd7831b"
+      "sha256": "f272189cd2319c49765ea0f1e93809685c862cc825c4248a257d3cce7cc6e2d8"
     },
     "policy": {
       "file_name": "behavior-policy.json",
@@ -11,7 +12,7 @@
   },
   "results": [
     {
-      "case_id": "MUT-RENAMED-BINARY",
+      "case_id": "MUT-01-RENAMED-BINARY",
       "evidence_locators": [
         "/events/0",
         "/events/1"
@@ -19,11 +20,13 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
     {
-      "case_id": "MUT-DIFFERENT-ENCODING",
+      "case_id": "MUT-02-DIFFERENT-ENCODING",
       "evidence_locators": [
         "/events/0",
         "/events/1"
@@ -31,11 +34,13 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
     {
-      "case_id": "MUT-REMOVED-COMMAND-FAMILY",
+      "case_id": "MUT-03-REMOVED-COMMAND-FAMILY",
       "evidence_locators": [
         "/events/0",
         "/events/1"
@@ -43,30 +48,90 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
     },
     {
-      "case_id": "MUT-OUTSIDE-TIME-WINDOW",
+      "case_id": "MUT-04-OUTSIDE-TIME-WINDOW",
       "evidence_locators": [
         "/events/0"
       ],
       "expected": "no_alert",
-      "explanation": "Technique matched, but no related Security 4688 event matched the process, parent and time window.",
+      "explanation": "Technique matched, but no Security 4688 event matched the process, parent, and time window.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
+    },
+    {
+      "case_id": "MUT-05-CHANGED-PARENT",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "MUT-06-FULL-PATH-AND-CASE",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "MUT-07-CHANNEL-ALIASES",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "alert",
+      "status": "alerted"
+    },
+    {
+      "case_id": "MUT-08-WINDOW-BOUNDARY",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "alert",
+      "status": "alerted"
     }
   ],
   "schema_version": "1.0",
   "summary": {
     "failed": 0,
-    "passed": 4,
+    "passed": 8,
     "status_counts": {
-      "alerted": 3,
+      "alerted": 7,
       "suppressed": 1
     },
-    "total": 4
+    "total": 8
   },
   "verdict": "pass"
 }

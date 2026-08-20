@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run semantic detection fixtures without matching case IDs or commands."""
+"""Run semantic B2 detection fixtures without answer constants."""
 
 import argparse
 import hashlib
@@ -9,6 +9,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+
+ENGINE_VERSION = "2.0.0"
 
 CORE_EVENT_FIELDS = {
     "channel",
@@ -31,7 +33,7 @@ def sha256_file(path: Path) -> str:
 
 
 def normalized_binary(value: Any) -> str:
-    """Return a lowercase executable basename for comparison."""
+    """Return a lowercase executable basename."""
     if not isinstance(value, str):
         return ""
 
@@ -56,9 +58,7 @@ def normalized_channel(value: Any) -> str:
 
 
 def validate_policy(policy: Any) -> list[str]:
-    """Return policy problems; an empty list means valid."""
-    errors: list[str] = []
-
+    """Return policy errors; an empty list means valid."""
     required = {
         "correlation_window_seconds",
         "sysmon_process_channel",
@@ -74,9 +74,9 @@ def validate_policy(policy: Any) -> list[str]:
     missing = sorted(required - policy.keys())
 
     if missing:
-        errors.append("Missing policy fields: " + ",".join(missing))
-        return errors
+        return ["Missing policy fields: " + ",".join(missing)]
 
+    errors: list[str] = []
     window = policy["correlation_window_seconds"]
 
     if (
@@ -108,9 +108,7 @@ def validate_policy(policy: Any) -> list[str]:
 def decode_events(
     events: Any,
 ) -> tuple[list[dict[str, Any]], list[str]]:
-    """Validate event fields and return decoded events and errors."""
-    errors: list[str] = []
-
+    """Normalize fixture events and record parsing problems."""
     if not isinstance(events, list):
         return [], ["events must be a list."]
 
@@ -118,27 +116,33 @@ def decode_events(
         return [], []
 
     decoded: list[dict[str, Any]] = []
+    errors: list[str] = []
 
     for index, event in enumerate(events):
+        locator = f"/events/{index}"
+
         if not isinstance(event, dict):
-            errors.append(
-                f"/events/{index}: event must be an object."
-            )
+            errors.append(f"{locator}: event must be an object.")
             continue
 
         missing = sorted(CORE_EVENT_FIELDS - event.keys())
 
         if missing:
             errors.append(
-                f"/events/{index}: missing fields {','.join(missing)}"
+                f"{locator}: missing fields {','.join(missing)}"
             )
             continue
 
-        if not isinstance(event["event_code"], int):
+        if (
+            isinstance(event["event_code"], bool)
+            or not isinstance(event["event_code"], int)
+        ):
             errors.append(
-                f"/events/{index}/event_code: must be an integer."
+                f"{locator}/event_code: must be an integer."
             )
             continue
+
+        invalid_text = False
 
         for field in ("channel", "image", "parent_image"):
             if (
@@ -146,11 +150,26 @@ def decode_events(
                 or not event[field].strip()
             ):
                 errors.append(
-                    f"/events/{index}/{field}: "
-                    "must be a non-empty string."
+                    f"{locator}/{field}: must be a non-empty string."
                 )
+                invalid_text = True
 
-        decoded.append(event)
+        if invalid_text:
+            continue
+
+        normalized_event = dict(event)
+        normalized_event["normalized_channel"] = normalized_channel(
+            event["channel"]
+        )
+        normalized_event["normalized_image"] = normalized_binary(
+            event["image"]
+        )
+        normalized_event["normalized_parent_image"] = (
+            normalized_binary(event["parent_image"])
+        )
+        normalized_event["source_locator"] = locator
+
+        decoded.append(normalized_event)
 
     return decoded, errors
 
@@ -159,7 +178,7 @@ def semantic_match(
     events: list[dict[str, Any]],
     policy: dict[str, Any],
 ) -> tuple[bool, list[str], str]:
-    """Return detection decision, evidence locators and explanation."""
+    """Evaluate process-event correlation independently of expectation."""
     techniques = set(policy["detection_techniques"])
     window = float(policy["correlation_window_seconds"])
 
@@ -174,7 +193,7 @@ def semantic_match(
     security_candidates: list[tuple[int, dict[str, Any]]] = []
 
     for index, event in enumerate(events):
-        channel = normalized_channel(event["channel"])
+        channel = event["normalized_channel"]
         event_code = event["event_code"]
 
         if (
@@ -203,19 +222,7 @@ def semantic_match(
         )
 
     for sysmon_index, sysmon_event in sysmon_candidates:
-        sysmon_image = normalized_binary(sysmon_event["image"])
-        sysmon_parent = normalized_binary(
-            sysmon_event["parent_image"]
-        )
-
         for security_index, security_event in security_candidates:
-            security_image = normalized_binary(
-                security_event["image"]
-            )
-            security_parent = normalized_binary(
-                security_event["parent_image"]
-            )
-
             delta = security_event.get("delta_seconds")
 
             if (
@@ -225,8 +232,10 @@ def semantic_match(
                 continue
 
             same_process = (
-                sysmon_image == security_image
-                and sysmon_parent == security_parent
+                sysmon_event["normalized_image"]
+                == security_event["normalized_image"]
+                and sysmon_event["normalized_parent_image"]
+                == security_event["normalized_parent_image"]
             )
 
             inside_window = 0 <= float(delta) <= window
@@ -248,8 +257,8 @@ def semantic_match(
             f"/events/{index}"
             for index, _ in sysmon_candidates
         ],
-        "Technique matched, but no related Security 4688 event "
-        "matched the process, parent and time window.",
+        "Technique matched, but no Security 4688 event "
+        "matched the process, parent, and time window.",
     )
 
 
@@ -257,12 +266,12 @@ def classify_fixture(
     fixture: dict[str, Any],
     policy: dict[str, Any],
 ) -> dict[str, Any]:
-    """Classify one fixture and compare detection with expectation."""
+    """Classify one fixture using the six B2 outcome states."""
     case_id = fixture.get("case_id")
     expected = fixture.get("expected")
     events = fixture.get("events")
 
-    decoded, decode_errors = decode_events(events)
+    decoded, parse_errors = decode_events(events)
 
     if isinstance(events, list) and not events:
         status = "no_telemetry"
@@ -270,11 +279,11 @@ def classify_fixture(
         locators: list[str] = []
         explanation = "The fixture contained no telemetry events."
 
-    elif decode_errors:
-        status = "decoder_failure"
+    elif parse_errors:
+        status = "parse_failure"
         detected = False
         locators = []
-        explanation = "; ".join(decode_errors)
+        explanation = "; ".join(parse_errors)
 
     else:
         detected, locators, explanation = semantic_match(
@@ -282,7 +291,9 @@ def classify_fixture(
             policy,
         )
 
-        if detected:
+        if detected and expected == "no_alert":
+            status = "unexpected_alert"
+        elif detected:
             status = "alerted"
         elif expected == "alert":
             status = "rule_miss"
@@ -299,6 +310,8 @@ def classify_fixture(
         "status": status,
         "matched_expectation": matched_expectation,
         "evidence_locators": locators,
+        "normalized_event_count": len(decoded),
+        "parse_errors": parse_errors,
         "explanation": explanation,
     }
 
@@ -327,6 +340,7 @@ def run_suite(
 
     return {
         "schema_version": "1.0",
+        "engine_version": ENGINE_VERSION,
         "inputs": {
             "fixture": {
                 "file_name": fixture_path.name,
@@ -353,7 +367,7 @@ def run_suite(
 def parse_args() -> argparse.Namespace:
     """Read command-line arguments."""
     parser = argparse.ArgumentParser(
-        description="Run the semantic detection fixture suite."
+        description="Run the portable B2 semantic detection suite."
     )
 
     parser.add_argument(

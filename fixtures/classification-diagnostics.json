@@ -6,7 +6,7 @@
       "expected": "alert"
     },
     {
-      "case_id": "DIAG-DECODER-FAILURE",
+      "case_id": "DIAG-PARSE-FAILURE",
       "events": [
         {
           "channel": "sysmon",
@@ -22,7 +22,7 @@
           "channel": "sysmon",
           "event_code": 1,
           "event_id": 1,
-          "image": "renamed-tool.exe",
+          "image": "test-shell.exe",
           "parent_image": "services.exe",
           "technique_id": "T1059.001"
         }
@@ -72,6 +72,28 @@
         }
       ],
       "expected": "alert"
+    },
+    {
+      "case_id": "DIAG-UNEXPECTED-ALERT",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "false-positive.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1059.001"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "false-positive.exe",
+          "parent_image": "services.exe",
+          "delta_seconds": 2
+        }
+      ],
+      "expected": "no_alert"
     }
   ]
 }

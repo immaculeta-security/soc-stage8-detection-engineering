@@ -1,8 +1,9 @@
 {
+  "engine_version": "2.0.0",
   "inputs": {
     "fixture": {
       "file_name": "classification-diagnostics.json",
-      "sha256": "2f4ca0f8e54816c6490afab2e83bcb294f5329aade947616366af97a0cd5927c"
+      "sha256": "38b427bfe9ea1c40c94061c9b78c4b4bee81f69070b1819cfbaeaeff3c5c88ed"
     },
     "policy": {
       "file_name": "behavior-policy.json",
@@ -16,17 +17,23 @@
       "expected": "alert",
       "explanation": "The fixture contained no telemetry events.",
       "matched_expectation": false,
+      "normalized_event_count": 0,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "no_telemetry"
     },
     {
-      "case_id": "DIAG-DECODER-FAILURE",
+      "case_id": "DIAG-PARSE-FAILURE",
       "evidence_locators": [],
       "expected": "alert",
       "explanation": "/events/0: missing fields event_id,image,parent_image",
       "matched_expectation": false,
+      "normalized_event_count": 0,
+      "parse_errors": [
+        "/events/0: missing fields event_id,image,parent_image"
+      ],
       "predicted": "no_alert",
-      "status": "decoder_failure"
+      "status": "parse_failure"
     },
     {
       "case_id": "DIAG-RULE-MISS",
@@ -34,8 +41,10 @@
         "/events/0"
       ],
       "expected": "alert",
-      "explanation": "Technique matched, but no related Security 4688 event matched the process, parent and time window.",
+      "explanation": "Technique matched, but no Security 4688 event matched the process, parent, and time window.",
       "matched_expectation": false,
+      "normalized_event_count": 1,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "rule_miss"
     },
@@ -45,6 +54,8 @@
       "expected": "no_alert",
       "explanation": "No Sysmon process event matched the configured techniques.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "no_alert",
       "status": "suppressed"
     },
@@ -57,22 +68,39 @@
       "expected": "alert",
       "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
       "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
       "predicted": "alert",
       "status": "alerted"
+    },
+    {
+      "case_id": "DIAG-UNEXPECTED-ALERT",
+      "evidence_locators": [
+        "/events/0",
+        "/events/1"
+      ],
+      "expected": "no_alert",
+      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
+      "matched_expectation": false,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "alert",
+      "status": "unexpected_alert"
     }
   ],
   "schema_version": "1.0",
   "summary": {
-    "failed": 3,
+    "failed": 4,
     "passed": 2,
     "status_counts": {
       "alerted": 1,
-      "decoder_failure": 1,
       "no_telemetry": 1,
+      "parse_failure": 1,
       "rule_miss": 1,
-      "suppressed": 1
+      "suppressed": 1,
+      "unexpected_alert": 1
     },
-    "total": 5
+    "total": 6
   },
   "verdict": "fail"
 }
