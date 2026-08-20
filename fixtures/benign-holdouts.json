@@ -185,7 +185,7 @@
           "event_id": 2,
           "image": "credential-check.exe",
           "parent_image": "services.exe",
-          "delta_seconds": -1
+          "delta_seconds": 1
         }
       ],
       "expected": "no_alert"
