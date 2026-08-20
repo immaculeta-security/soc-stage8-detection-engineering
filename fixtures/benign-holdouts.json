@@ -1,0 +1,251 @@
+{
+  "fixtures": [
+    {
+      "case_id": "HOLDOUT-01-SYSTEM-INVENTORY",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "inventory-agent.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1082"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "inventory-agent.exe",
+          "parent_image": "services.exe",
+          "delta_seconds": 2
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-02-USER-INVENTORY",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "account-audit.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1033"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "account-audit.exe",
+          "parent_image": "services.exe",
+          "delta_seconds": 3
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-03-NETWORK-INVENTORY",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "network-check.exe",
+          "parent_image": "monitoring-agent.exe",
+          "technique_id": "T1016"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "network-check.exe",
+          "parent_image": "monitoring-agent.exe",
+          "delta_seconds": 4
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-04-PROCESS-INVENTORY",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "process-monitor.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1057"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "process-monitor.exe",
+          "parent_image": "services.exe",
+          "delta_seconds": 5
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-05-INCOMPLETE-POWERSHELL",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "powershell.exe",
+          "parent_image": "enterprise-updater.exe",
+          "technique_id": "T1059.001"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-06-MISMATCHED-IMAGE",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "cmd.exe",
+          "parent_image": "config-agent.exe",
+          "technique_id": "T1059.003"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "maintenance.exe",
+          "parent_image": "config-agent.exe",
+          "delta_seconds": 2
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-07-MISMATCHED-PARENT",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "regsvr32.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1105"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "regsvr32.exe",
+          "parent_image": "enterprise-updater.exe",
+          "delta_seconds": 3
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-08-OUTSIDE-WINDOW",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "rundll32.exe",
+          "parent_image": "explorer.exe",
+          "technique_id": "T1218.011"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "rundll32.exe",
+          "parent_image": "explorer.exe",
+          "delta_seconds": 11
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-09-NEGATIVE-DELTA",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "credential-check.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1003.001"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "credential-check.exe",
+          "parent_image": "services.exe",
+          "delta_seconds": -1
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-10-REVERSED-BENIGN-ORDER",
+      "events": [
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 1,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe",
+          "delta_seconds": 2
+        },
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 2,
+          "image": "teams.exe",
+          "parent_image": "enterprise-updater.exe",
+          "technique_id": "T1057"
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-11-SECURITY-ONLY",
+      "events": [
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 1,
+          "image": "powershell.exe",
+          "parent_image": "services.exe",
+          "delta_seconds": 2
+        }
+      ],
+      "expected": "no_alert"
+    },
+    {
+      "case_id": "HOLDOUT-12-MISSING-TIME-RELATION",
+      "events": [
+        {
+          "channel": "sysmon",
+          "event_code": 1,
+          "event_id": 1,
+          "image": "powershell.exe",
+          "parent_image": "services.exe",
+          "technique_id": "T1059.001"
+        },
+        {
+          "channel": "security",
+          "event_code": 4688,
+          "event_id": 2,
+          "image": "powershell.exe",
+          "parent_image": "services.exe"
+        }
+      ],
+      "expected": "no_alert"
+    }
+  ]
+}

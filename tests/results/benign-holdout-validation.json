@@ -1,0 +1,27 @@
+{
+  "counts": {
+    "invalid_fixtures": 1,
+    "total_events": 22,
+    "total_fixtures": 12,
+    "valid_fixtures": 11
+  },
+  "error_categories": {
+    "invalid_delta_seconds": 1
+  },
+  "error_samples": [
+    {
+      "category": "invalid_delta_seconds",
+      "detail": "delta_seconds must be a non-negative number.",
+      "locator": "/fixtures/8/events/1/delta_seconds"
+    }
+  ],
+  "expected_counts": {
+    "no_alert": 12
+  },
+  "input": {
+    "file_name": "benign-holdouts.json",
+    "sha256": "0da85f4eca71dad14f73f513d18096b33b0d5c469d9cc5e07f04a82054672fb0"
+  },
+  "schema_version": "1.0",
+  "verdict": "malformed_input"
+}

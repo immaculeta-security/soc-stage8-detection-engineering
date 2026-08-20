@@ -1,0 +1,169 @@
+{
+  "engine_version": "2.0.0",
+  "inputs": {
+    "fixture": {
+      "file_name": "benign-holdouts.json",
+      "sha256": "0da85f4eca71dad14f73f513d18096b33b0d5c469d9cc5e07f04a82054672fb0"
+    },
+    "policy": {
+      "file_name": "behavior-policy.json",
+      "sha256": "3cd4b8f5016620d0888e3bf934204e93b629c9b49213cedf8bb34dd0d9137325"
+    }
+  },
+  "results": [
+    {
+      "case_id": "HOLDOUT-01-SYSTEM-INVENTORY",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-02-USER-INVENTORY",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-03-NETWORK-INVENTORY",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-04-PROCESS-INVENTORY",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-05-INCOMPLETE-POWERSHELL",
+      "evidence_locators": [
+        "/events/0"
+      ],
+      "expected": "no_alert",
+      "explanation": "Technique matched, but no Security 4688 event matched the process, parent, and time window.",
+      "matched_expectation": true,
+      "normalized_event_count": 1,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-06-MISMATCHED-IMAGE",
+      "evidence_locators": [
+        "/events/0"
+      ],
+      "expected": "no_alert",
+      "explanation": "Technique matched, but no Security 4688 event matched the process, parent, and time window.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-07-MISMATCHED-PARENT",
+      "evidence_locators": [
+        "/events/0"
+      ],
+      "expected": "no_alert",
+      "explanation": "Technique matched, but no Security 4688 event matched the process, parent, and time window.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-08-OUTSIDE-WINDOW",
+      "evidence_locators": [
+        "/events/0"
+      ],
+      "expected": "no_alert",
+      "explanation": "Technique matched, but no Security 4688 event matched the process, parent, and time window.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-09-NEGATIVE-DELTA",
+      "evidence_locators": [
+        "/events/0"
+      ],
+      "expected": "no_alert",
+      "explanation": "Technique matched, but no Security 4688 event matched the process, parent, and time window.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-10-REVERSED-BENIGN-ORDER",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-11-SECURITY-ONLY",
+      "evidence_locators": [],
+      "expected": "no_alert",
+      "explanation": "No Sysmon process event matched the configured techniques.",
+      "matched_expectation": true,
+      "normalized_event_count": 1,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    },
+    {
+      "case_id": "HOLDOUT-12-MISSING-TIME-RELATION",
+      "evidence_locators": [
+        "/events/0"
+      ],
+      "expected": "no_alert",
+      "explanation": "Technique matched, but no Security 4688 event matched the process, parent, and time window.",
+      "matched_expectation": true,
+      "normalized_event_count": 2,
+      "parse_errors": [],
+      "predicted": "no_alert",
+      "status": "suppressed"
+    }
+  ],
+  "schema_version": "1.0",
+  "summary": {
+    "failed": 0,
+    "passed": 12,
+    "status_counts": {
+      "suppressed": 12
+    },
+    "total": 12
+  },
+  "verdict": "pass"
+}
