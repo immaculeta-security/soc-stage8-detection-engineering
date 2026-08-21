@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the unattended Stage 8 regression suite and emit JUnit XML."""
+"""Run the unattended B2 Stage 8 regression suite and emit JUnit XML."""
 
 import hashlib
 import json
@@ -12,10 +12,11 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = sys.executable
+RUNNER_VERSION = "2.0.0"
 
 
 def sha256_file(path: Path) -> str:
-    """Return the SHA-256 fingerprint of a file."""
+    """Return the SHA-256 fingerprint of one file."""
     digest = hashlib.sha256()
 
     with path.open("rb") as handle:
@@ -30,7 +31,7 @@ def run_command(
     arguments: list[str],
     expected_exit: int,
 ) -> dict[str, Any]:
-    """Run one command and describe whether it behaved correctly."""
+    """Run one command and check its exit code."""
     completed = subprocess.run(
         arguments,
         cwd=ROOT,
@@ -45,8 +46,6 @@ def run_command(
         "name": name,
         "classname": "component",
         "passed": passed,
-        "expected_exit": expected_exit,
-        "actual_exit": completed.returncode,
         "stdout": completed.stdout.strip(),
         "stderr": completed.stderr.strip(),
         "detail": (
@@ -64,7 +63,7 @@ def fixture_testcases(
     result_path: Path,
     classname: str,
 ) -> list[dict[str, Any]]:
-    """Convert detection JSON results into individual test cases."""
+    """Convert detection results into individual JUnit test cases."""
     with result_path.open("r", encoding="utf-8") as handle:
         document = json.load(handle)
 
@@ -76,8 +75,6 @@ def fixture_testcases(
                 "name": str(result["case_id"]),
                 "classname": classname,
                 "passed": bool(result["matched_expectation"]),
-                "expected_exit": None,
-                "actual_exit": None,
                 "stdout": "",
                 "stderr": "",
                 "detail": (
@@ -93,11 +90,66 @@ def fixture_testcases(
     return testcases
 
 
+def classification_contract_testcase(
+    result_path: Path,
+) -> dict[str, Any]:
+    """Verify that the engine can emit every required B2 status."""
+    required = {
+        "DIAG-NO-TELEMETRY": "no_telemetry",
+        "DIAG-PARSE-FAILURE": "parse_failure",
+        "DIAG-RULE-MISS": "rule_miss",
+        "DIAG-SUPPRESSED": "suppressed",
+        "DIAG-ALERTED": "alerted",
+        "DIAG-UNEXPECTED-ALERT": "unexpected_alert",
+    }
+
+    try:
+        with result_path.open("r", encoding="utf-8") as handle:
+            document = json.load(handle)
+
+        observed = {
+            str(result["case_id"]): str(result["status"])
+            for result in document["results"]
+        }
+
+        problems = []
+
+        for case_id, expected_status in required.items():
+            actual_status = observed.get(case_id)
+
+            if actual_status != expected_status:
+                problems.append(
+                    f"{case_id}: expected {expected_status}, "
+                    f"observed {actual_status}"
+                )
+
+        passed = not problems
+        detail = (
+            "All six B2 outcome classifications were produced."
+            if passed
+            else "; ".join(problems)
+        )
+
+    except (OSError, KeyError, TypeError, json.JSONDecodeError) as error:
+        passed = False
+        observed = {}
+        detail = f"Could not verify classification contract: {error}"
+
+    return {
+        "name": "six-outcome-classification-contract",
+        "classname": "classification",
+        "passed": passed,
+        "stdout": json.dumps(observed, sort_keys=True),
+        "stderr": "",
+        "detail": detail,
+    }
+
+
 def add_testcase(
     suite: ET.Element,
     testcase: dict[str, Any],
 ) -> None:
-    """Add one JUnit testcase element."""
+    """Add one testcase to the JUnit document."""
     element = ET.SubElement(
         suite,
         "testcase",
@@ -137,13 +189,13 @@ def write_junit(
     testcases: list[dict[str, Any]],
     input_hashes: dict[str, str],
 ) -> tuple[int, int]:
-    """Write deterministic JUnit XML and return tests and failures."""
+    """Write deterministic JUnit XML."""
     failures = sum(not testcase["passed"] for testcase in testcases)
 
     suite = ET.Element(
         "testsuite",
         {
-            "name": "ubi-stage8-detection-regression",
+            "name": "ubi-stage8-b2-detection-regression",
             "tests": str(len(testcases)),
             "failures": str(failures),
             "errors": "0",
@@ -151,6 +203,15 @@ def write_junit(
     )
 
     properties = ET.SubElement(suite, "properties")
+
+    ET.SubElement(
+        properties,
+        "property",
+        {
+            "name": "runner_version",
+            "value": RUNNER_VERSION,
+        },
+    )
 
     for name, value in sorted(input_hashes.items()):
         ET.SubElement(
@@ -166,8 +227,7 @@ def write_junit(
         add_testcase(suite, testcase)
 
     tree = ET.ElementTree(suite)
-    ET.indent(tree, space="  ")
-
+    ET.indent(tree, space=" ")
     tree.write(
         output_path,
         encoding="utf-8",
@@ -178,31 +238,32 @@ def write_junit(
 
 
 def main() -> int:
-    """Run every acceptance test and emit the regression report."""
-    results_directory = ROOT / "tests" / "results"
-    results_directory.mkdir(parents=True, exist_ok=True)
+    """Run every B2 acceptance test and emit the report."""
+    results = ROOT / "tests" / "results"
+    results.mkdir(parents=True, exist_ok=True)
 
-    public_validation = (
-        results_directory / "public-fixture-validation.json"
-    )
-    malformed_fixture_validation = (
-        results_directory
-        / "public-fixture-malformed-validation.json"
-    )
-    smoke_validation = (
-        results_directory / "replay-smoke-validation.json"
-    )
-    malformed_replay_validation = (
-        results_directory / "replay-malformed-validation.json"
-    )
-    public_detection = (
-        results_directory / "public-detection-results.json"
-    )
-    mutation_detection = (
-        results_directory / "mutation-results.json"
-    )
+    paths = {
+        "public_validation":
+            results / "public-fixture-validation.json",
+        "malformed_fixture":
+            results / "public-fixture-malformed-validation.json",
+        "smoke_replay":
+            results / "replay-smoke-validation.json",
+        "malformed_replay":
+            results / "replay-malformed-validation.json",
+        "public_detection":
+            results / "public-detection-results.json",
+        "mutation_detection":
+            results / "mutation-results.json",
+        "holdout_validation":
+            results / "benign-holdout-validation.json",
+        "holdout_detection":
+            results / "benign-holdout-results.json",
+        "classification":
+            results / "classification-diagnostics-results.json",
+    }
 
-    component_tests = [
+    components = [
         run_command(
             "public-fixture-schema-valid",
             [
@@ -211,7 +272,7 @@ def main() -> int:
                 "--input",
                 "fixtures/public-fixtures.json",
                 "--output",
-                str(public_validation),
+                str(paths["public_validation"]),
             ],
             0,
         ),
@@ -223,7 +284,7 @@ def main() -> int:
                 "--input",
                 "fixtures/public-fixtures-malformed.json",
                 "--output",
-                str(malformed_fixture_validation),
+                str(paths["malformed_fixture"]),
             ],
             2,
         ),
@@ -235,7 +296,7 @@ def main() -> int:
                 "--input",
                 "fixtures/replay-smoke.jsonl",
                 "--output",
-                str(smoke_validation),
+                str(paths["smoke_replay"]),
             ],
             0,
         ),
@@ -247,7 +308,7 @@ def main() -> int:
                 "--input",
                 "fixtures/replay-malformed.jsonl",
                 "--output",
-                str(malformed_replay_validation),
+                str(paths["malformed_replay"]),
             ],
             2,
         ),
@@ -261,12 +322,12 @@ def main() -> int:
                 "--policy",
                 "rules/behavior-policy.json",
                 "--output",
-                str(public_detection),
+                str(paths["public_detection"]),
             ],
             0,
         ),
         run_command(
-            "mutation-detection-suite",
+            "eight-mutation-suite",
             [
                 PYTHON,
                 "detection-lab/detection_engine.py",
@@ -275,35 +336,91 @@ def main() -> int:
                 "--policy",
                 "rules/behavior-policy.json",
                 "--output",
-                str(mutation_detection),
+                str(paths["mutation_detection"]),
             ],
             0,
         ),
+        run_command(
+            "twelve-holdout-schema-valid",
+            [
+                PYTHON,
+                "detection-lab/fixture_validator.py",
+                "--input",
+                "fixtures/benign-holdouts.json",
+                "--output",
+                str(paths["holdout_validation"]),
+            ],
+            0,
+        ),
+        run_command(
+            "twelve-benign-holdout-suite",
+            [
+                PYTHON,
+                "detection-lab/detection_engine.py",
+                "--fixtures",
+                "fixtures/benign-holdouts.json",
+                "--policy",
+                "rules/behavior-policy.json",
+                "--output",
+                str(paths["holdout_detection"]),
+            ],
+            0,
+        ),
+        run_command(
+            "classification-diagnostic-exit",
+            [
+                PYTHON,
+                "detection-lab/detection_engine.py",
+                "--fixtures",
+                "fixtures/classification-diagnostics.json",
+                "--policy",
+                "rules/behavior-policy.json",
+                "--output",
+                str(paths["classification"]),
+            ],
+            1,
+        ),
     ]
 
-    all_tests = list(component_tests)
+    all_tests = list(components)
+
     all_tests.extend(
         fixture_testcases(
-            public_detection,
+            paths["public_detection"],
             "public_detection",
         )
     )
     all_tests.extend(
         fixture_testcases(
-            mutation_detection,
+            paths["mutation_detection"],
             "mutation_detection",
         )
     )
+    all_tests.extend(
+        fixture_testcases(
+            paths["holdout_detection"],
+            "benign_holdout",
+        )
+    )
+    all_tests.append(
+        classification_contract_testcase(paths["classification"])
+    )
 
     input_hashes = {
+        "behavior_policy_sha256": sha256_file(
+            ROOT / "rules" / "behavior-policy.json"
+        ),
         "public_fixture_sha256": sha256_file(
             ROOT / "fixtures" / "public-fixtures.json"
         ),
         "mutation_fixture_sha256": sha256_file(
             ROOT / "fixtures" / "mutation-tests.json"
         ),
-        "behavior_policy_sha256": sha256_file(
-            ROOT / "rules" / "behavior-policy.json"
+        "benign_holdout_sha256": sha256_file(
+            ROOT / "fixtures" / "benign-holdouts.json"
+        ),
+        "classification_fixture_sha256": sha256_file(
+            ROOT / "fixtures" / "classification-diagnostics.json"
         ),
     }
 
