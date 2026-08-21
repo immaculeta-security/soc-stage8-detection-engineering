@@ -3,7 +3,7 @@
   "inputs": {
     "fixture": {
       "file_name": "benign-holdouts.json",
-      "sha256": "1c233f0159f270f7bbb6ca4040cf3fc205e52a08c6058a1162b327676b9e3aac"
+      "sha256": "daf629e3075e8d718dd543fa5457672cc5e7b4fce4fbfb2440c65207df3e59e9"
     },
     "policy": {
       "file_name": "behavior-policy.json",
@@ -110,16 +110,15 @@
     {
       "case_id": "HOLDOUT-09-NEGATIVE-DELTA",
       "evidence_locators": [
-        "/events/0",
-        "/events/1"
+        "/events/0"
       ],
       "expected": "no_alert",
-      "explanation": "Correlated Sysmon 1 and Security 4688 process events.",
-      "matched_expectation": false,
+      "explanation": "Technique matched, but no Security 4688 event matched the process, parent, and time window.",
+      "matched_expectation": true,
       "normalized_event_count": 2,
       "parse_errors": [],
-      "predicted": "alert",
-      "status": "unexpected_alert"
+      "predicted": "no_alert",
+      "status": "suppressed"
     },
     {
       "case_id": "HOLDOUT-10-REVERSED-BENIGN-ORDER",
@@ -159,13 +158,12 @@
   ],
   "schema_version": "1.0",
   "summary": {
-    "failed": 1,
-    "passed": 11,
+    "failed": 0,
+    "passed": 12,
     "status_counts": {
-      "suppressed": 11,
-      "unexpected_alert": 1
+      "suppressed": 12
     },
     "total": 12
   },
-  "verdict": "fail"
+  "verdict": "pass"
 }

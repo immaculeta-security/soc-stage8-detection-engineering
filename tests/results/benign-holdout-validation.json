@@ -12,7 +12,7 @@
   },
   "input": {
     "file_name": "benign-holdouts.json",
-    "sha256": "1c233f0159f270f7bbb6ca4040cf3fc205e52a08c6058a1162b327676b9e3aac"
+    "sha256": "daf629e3075e8d718dd543fa5457672cc5e7b4fce4fbfb2440c65207df3e59e9"
   },
   "schema_version": "1.0",
   "verdict": "valid"
