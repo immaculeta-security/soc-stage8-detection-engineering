@@ -37,13 +37,6 @@
     "path": "windows-replay.jsonl",
     "sha256": "ea7f96497f9275ccdc47fdb026480558547db5bfaa7aa8bf3a806a2bc9272838"
   },
-  "prohibited_decision_fields": [
-    "case_id",
-    "expected",
-    "marker",
-    "mitre_technique",
-    "training_token"
-  ],
   "schema_version": "1.0",
   "source_schema_versions": {
     "1": 83334,

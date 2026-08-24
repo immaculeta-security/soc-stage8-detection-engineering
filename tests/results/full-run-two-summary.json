@@ -1,11 +1,40 @@
 {
   "commands": {
-    "adapter_exit": 0,
-    "adapter_stderr": "",
-    "adapter_stdout": "adapter total=250000 valid=250000 invalid=0 candidates=12 verdict=pass",
-    "regression_exit": 0,
-    "regression_stderr": "",
-    "regression_stdout": "regression tests=66 failures=0 verdict=pass report=regression-results.xml"
+    "adapter": {
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "adapter total=250000 valid=250000 invalid=0 candidates=12 verdict=pass"
+    },
+    "detector": {
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "replay-detection total=12 alerted=12 suppressed=0 parse_failures=0 verdict=pass"
+    },
+    "evaluator": {
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "replay-evaluation assigned=12 matched=12 failed=0 unexpected_alerts=0 verdict=pass"
+    },
+    "regression": {
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "regression tests=66 failures=0 verdict=pass report=regression-results.xml"
+    }
+  },
+  "detection_counts": {
+    "alerted": 12,
+    "parse_failures": 0,
+    "suppressed": 0,
+    "total_candidates": 12
+  },
+  "evaluation_counts": {
+    "assigned_source_events": 12,
+    "failed": 0,
+    "matched": 12,
+    "unexpected_alerts": 0
+  },
+  "evaluation_status_counts": {
+    "alerted": 12
   },
   "input": {
     "bytes": 81133259,
@@ -15,10 +44,14 @@
   "output_hashes": {
     "normalized-candidates.jsonl": "8afdfa4c9759ab14a6dd0a970e2c5160a18d4267ad4f689d0756f8d75b93e87e",
     "regression-results.xml": "04ddb042669702527bfa9cc8f05f789dab13359b2c47af9ba5a56a188c931393",
-    "source-accounting.json": "f6208d1a113ddf52d88340ac8c37789a7ee82cf4d1b07529d1deb556ebed310f"
+    "replay-alerts.jsonl": "8ecd8b48ff597ef43ef5b6fc523ef43397b4e9a2e7d9ae14245390cf147ff09d",
+    "replay-decisions.jsonl": "8ecd8b48ff597ef43ef5b6fc523ef43397b4e9a2e7d9ae14245390cf147ff09d",
+    "replay-evaluation.json": "e31031f87d2087149979f9fa8b2d362c45bf768a26fa231cb2a21ac68e2b4ca5",
+    "replay-summary.json": "15df1637e71492570f24fd2487796d2e2f6270e7ba36c30d421a68760324e41b",
+    "source-accounting.json": "fa9864cfa8b961d9f0cbe85c2c30f70dc9c8b3003d930c9763e972e7587f6524"
   },
   "problems": [],
-  "runner_version": "1.0.0",
+  "runner_version": "2.0.0",
   "schema_version": "1.0",
   "source_counts": {
     "invalid_events": 0,
