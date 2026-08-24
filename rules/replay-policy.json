@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "policy_version": "1.0.0",
+  "rules": [
+    {
+      "rule_id": "UBI-A8-1001",
+      "rule_version": "1.0.0",
+      "name": "Encoded or obfuscated interpreter behavior",
+      "technique_id": "T1059.001",
+      "severity": "high",
+      "required_features": [
+        "encoded_or_obfuscated_behavior"
+      ]
+    },
+    {
+      "rule_id": "UBI-A8-1002",
+      "rule_version": "1.0.0",
+      "name": "Ingress transfer behavior",
+      "technique_id": "T1105",
+      "severity": "high",
+      "required_features": [
+        "ingress_transfer_behavior"
+      ]
+    },
+    {
+      "rule_id": "UBI-A8-1003",
+      "rule_version": "1.0.0",
+      "name": "Registry persistence behavior",
+      "technique_id": "T1547.001",
+      "severity": "high",
+      "required_features": [
+        "registry_persistence_behavior"
+      ]
+    },
+    {
+      "rule_id": "UBI-A8-1004",
+      "rule_version": "1.0.0",
+      "name": "Credential access behavior",
+      "technique_id": "T1003.001",
+      "severity": "critical",
+      "required_features": [
+        "credential_access_behavior"
+      ]
+    },
+    {
+      "rule_id": "UBI-A8-1005",
+      "rule_version": "1.0.0",
+      "name": "Remote Windows command-shell parent relationship",
+      "technique_id": "T1059.003",
+      "severity": "high",
+      "required_features": [
+        "remote_shell_parent_relationship"
+      ]
+    },
+    {
+      "rule_id": "UBI-A8-1006",
+      "rule_version": "1.0.0",
+      "name": "Service-launched system binary proxy behavior",
+      "technique_id": "T1218.011",
+      "severity": "high",
+      "required_features": [
+        "service_proxy_execution_relationship"
+      ]
+    }
+  ]
+}
