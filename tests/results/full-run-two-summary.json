@@ -1,0 +1,30 @@
+{
+  "commands": {
+    "adapter_exit": 0,
+    "adapter_stderr": "",
+    "adapter_stdout": "adapter total=250000 valid=250000 invalid=0 candidates=12 verdict=pass",
+    "regression_exit": 0,
+    "regression_stderr": "",
+    "regression_stdout": "regression tests=66 failures=0 verdict=pass report=regression-results.xml"
+  },
+  "input": {
+    "bytes": 81133259,
+    "file_name": "windows-replay.jsonl",
+    "sha256": "ea7f96497f9275ccdc47fdb026480558547db5bfaa7aa8bf3a806a2bc9272838"
+  },
+  "output_hashes": {
+    "normalized-candidates.jsonl": "8afdfa4c9759ab14a6dd0a970e2c5160a18d4267ad4f689d0756f8d75b93e87e",
+    "regression-results.xml": "04ddb042669702527bfa9cc8f05f789dab13359b2c47af9ba5a56a188c931393",
+    "source-accounting.json": "f6208d1a113ddf52d88340ac8c37789a7ee82cf4d1b07529d1deb556ebed310f"
+  },
+  "problems": [],
+  "runner_version": "1.0.0",
+  "schema_version": "1.0",
+  "source_counts": {
+    "invalid_events": 0,
+    "semantic_candidates": 12,
+    "total_events": 250000,
+    "valid_events": 250000
+  },
+  "verdict": "pass"
+}
