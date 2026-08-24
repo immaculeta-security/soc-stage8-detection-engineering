@@ -1,0 +1,20 @@
+{
+  "removed": [
+    "alerts/replay-alerts.jsonl",
+    "alerts/replay-decisions.jsonl",
+    "alerts/replay-summary.json",
+    "detection-lab/__pycache__",
+    "raw-events/normalized-candidates.jsonl",
+    "raw-events/source-accounting.json",
+    "regression-results.xml",
+    "tests/results/clean-run",
+    "tests/results/clean-run-summary.json",
+    "tests/results/full-run-one",
+    "tests/results/full-run-one-summary.json",
+    "tests/results/full-run-two",
+    "tests/results/full-run-two-summary.json"
+  ],
+  "removed_count": 13,
+  "schema_version": "1.0",
+  "verdict": "pass"
+}
