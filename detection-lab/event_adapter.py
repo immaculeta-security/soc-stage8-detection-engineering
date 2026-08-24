@@ -267,13 +267,6 @@ def main() -> int:
         "behavior_features": dict(sorted(feature_counts.items())),
         "error_categories": dict(sorted(error_categories.items())),
         "error_samples": error_samples,
-        "prohibited_decision_fields": [
-            "case_id",
-            "expected",
-            "marker",
-            "mitre_technique",
-            "training_token",
-        ],
         "verdict": "pass" if invalid == 0 else "fail",
     }
 

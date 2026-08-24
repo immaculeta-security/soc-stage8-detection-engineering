@@ -195,8 +195,8 @@ def main() -> int:
                     ),
                     "expected_technique": expected_technique,
                     "normalized_locator": (
-                        normalized_event.get("source_locator")
-                        if normalized_event
+                        decision.get("normalized_locator")
+                        if decision
                         else None
                     ),
                     "normalized_event_sha256": (
