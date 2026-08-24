@@ -1,0 +1,54 @@
+{
+  "adapter_version": "1.0.0",
+  "behavior_features": {
+    "credential_access_behavior": 2,
+    "encoded_or_obfuscated_behavior": 2,
+    "ingress_transfer_behavior": 2,
+    "registry_persistence_behavior": 2,
+    "remote_shell_parent_relationship": 2,
+    "service_proxy_execution_relationship": 2
+  },
+  "channels": {
+    "Microsoft-Windows-Sysmon/Operational": 125000,
+    "Security": 125000
+  },
+  "command_families": {
+    "credential_access": 2,
+    "download": 2,
+    "encoded_or_obfuscated": 2,
+    "native": 249931,
+    "registry_run_key": 2,
+    "signed_update": 61
+  },
+  "counts": {
+    "invalid_events": 0,
+    "semantic_candidates": 12,
+    "total_events": 250000,
+    "valid_events": 250000
+  },
+  "error_categories": {},
+  "error_samples": [],
+  "event_codes": {
+    "1": 125000,
+    "4688": 125000
+  },
+  "input": {
+    "bytes": 81133259,
+    "path": "windows-replay.jsonl",
+    "sha256": "ea7f96497f9275ccdc47fdb026480558547db5bfaa7aa8bf3a806a2bc9272838"
+  },
+  "prohibited_decision_fields": [
+    "case_id",
+    "expected",
+    "marker",
+    "mitre_technique",
+    "training_token"
+  ],
+  "schema_version": "1.0",
+  "source_schema_versions": {
+    "1": 83334,
+    "2": 83333,
+    "3": 83333
+  },
+  "verdict": "pass"
+}
