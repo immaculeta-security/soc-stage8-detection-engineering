@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Provide safe provision, build, test and clean project commands."""
+"""Provide clean, provision, build and test tasks for Stage 8 B2."""
 
 import argparse
 import hashlib
 import json
 import py_compile
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -12,60 +13,74 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+PYTHON = sys.executable
+MINIMUM_PYTHON = (3, 11)
 
-REQUIRED_DIRECTORIES = [
-    "alerts",
-    "decoders",
-    "detection-lab",
-    "fixtures",
-    "raw-events",
-    "rules",
-    "tests",
-    "tests/results",
-]
-
-REQUIRED_INPUTS = [
-    "detection-lab/replay_validator.py",
-    "detection-lab/fixture_validator.py",
+REQUIRED_SOURCE_FILES = [
     "detection-lab/detection_engine.py",
-    "detection-lab/run_regression.py",
-    "fixtures/public-fixtures.json",
-    "fixtures/public-fixtures-malformed.json",
-    "fixtures/replay-smoke.jsonl",
-    "fixtures/replay-malformed.jsonl",
-    "fixtures/mutation-tests.json",
-    "rules/behavior-policy.json",
-]
-
-PYTHON_PROGRAMS = [
-    "detection-lab/replay_validator.py",
+    "detection-lab/event_adapter.py",
     "detection-lab/fixture_validator.py",
-    "detection-lab/detection_engine.py",
-    "detection-lab/run_regression.py",
     "detection-lab/project_tasks.py",
-]
-
-JSON_INPUTS = [
-    "fixtures/public-fixtures.json",
-    "fixtures/public-fixtures-malformed.json",
+    "detection-lab/replay_detector.py",
+    "detection-lab/replay_evaluator.py",
+    "detection-lab/replay_validator.py",
+    "detection-lab/run_full_replay.py",
+    "detection-lab/run_regression.py",
+    "fixtures/benign-holdouts.json",
+    "fixtures/classification-diagnostics.json",
     "fixtures/mutation-tests.json",
+    "fixtures/public-fixtures-malformed.json",
+    "fixtures/public-fixtures.json",
+    "fixtures/replay-malformed.jsonl",
+    "fixtures/replay-smoke.jsonl",
     "rules/behavior-policy.json",
+    "rules/replay-policy.json",
 ]
 
-GENERATED_OUTPUTS = [
+GENERATED_FILES = [
     "regression-results.xml",
-    "tests/results/build-validation.json",
-    "tests/results/public-fixture-validation.json",
-    "tests/results/public-fixture-malformed-validation.json",
-    "tests/results/replay-smoke-validation.json",
-    "tests/results/replay-malformed-validation.json",
-    "tests/results/public-detection-results.json",
-    "tests/results/mutation-results.json",
+    "raw-events/normalized-candidates.jsonl",
+    "raw-events/source-accounting.json",
+    "alerts/replay-alerts.jsonl",
+    "alerts/replay-decisions.jsonl",
+    "alerts/replay-summary.json",
 ]
+
+GENERATED_DIRECTORIES = [
+    "tests/results/full-run-one",
+    "tests/results/full-run-two",
+    "tests/results/clean-run",
+]
+
+GENERATED_SUMMARIES = [
+    "tests/results/full-run-one-summary.json",
+    "tests/results/full-run-two-summary.json",
+    "tests/results/clean-run-summary.json",
+]
+
+
+def parse_arguments() -> argparse.Namespace:
+    """Read the requested project task."""
+    parser = argparse.ArgumentParser(
+        description="Run a Stage 8 B2 project task."
+    )
+    parser.add_argument(
+        "task",
+        choices=["provision", "build", "test", "clean"],
+        help="Project task to execute.",
+    )
+    parser.add_argument(
+        "--replay",
+        help=(
+            "Assigned Windows replay path. Required for the "
+            "complete scored test; omit for the public suite only."
+        ),
+    )
+    return parser.parse_args()
 
 
 def sha256_file(path: Path) -> str:
-    """Return the SHA-256 fingerprint of a file."""
+    """Calculate a file SHA-256."""
     digest = hashlib.sha256()
 
     with path.open("rb") as handle:
@@ -75,95 +90,111 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def project_path(relative_path: str) -> Path:
-    """Return a resolved path that must remain inside the project."""
-    path = (ROOT / relative_path).resolve()
+def source_path(relative_path: str) -> Path:
+    """Resolve a repository-relative source path."""
+    return ROOT / relative_path
 
-    if path != ROOT and ROOT not in path.parents:
-        raise ValueError(
-            f"Refusing path outside project: {relative_path}"
-        )
 
-    return path
+def run_command(arguments: list[str]) -> int:
+    """Run a child command with visible output."""
+    completed = subprocess.run(
+        arguments,
+        cwd=ROOT,
+        check=False,
+    )
+    return completed.returncode
 
 
 def provision() -> int:
-    """Prepare local directories and verify required inputs."""
-    if sys.version_info < (3, 10):
-        print("Python 3.10 or newer is required.", file=sys.stderr)
-        return 1
+    """Verify Python and every required source input."""
+    problems = []
 
-    for relative_directory in REQUIRED_DIRECTORIES:
-        project_path(relative_directory).mkdir(
-            parents=True,
-            exist_ok=True,
+    if sys.version_info[:2] < MINIMUM_PYTHON:
+        problems.append(
+            "Python 3.11 or newer is required."
         )
 
     missing = [
         relative_path
-        for relative_path in REQUIRED_INPUTS
-        if not project_path(relative_path).is_file()
+        for relative_path in REQUIRED_SOURCE_FILES
+        if not source_path(relative_path).is_file()
     ]
 
-    if missing:
-        print("Missing required inputs:", file=sys.stderr)
+    for relative_path in missing:
+        problems.append(f"missing: {relative_path}")
 
-        for relative_path in missing:
-            print(f"- {relative_path}", file=sys.stderr)
+    result = {
+        "schema_version": "1.0",
+        "python": {
+            "major": sys.version_info.major,
+            "minor": sys.version_info.minor,
+            "micro": sys.version_info.micro,
+        },
+        "required_input_count": len(REQUIRED_SOURCE_FILES),
+        "missing": missing,
+        "problems": problems,
+        "verdict": "pass" if not problems else "fail",
+    }
 
-        return 1
-
-    print(
-        "provision"
-        f" python={sys.version_info.major}.{sys.version_info.minor}"
-        f" required_inputs={len(REQUIRED_INPUTS)}"
-        " verdict=pass"
+    output = ROOT / "tests" / "results" / "provision.json"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
+        json.dumps(result, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
     )
 
-    return 0
+    print(
+        f"provision python={sys.version_info.major}."
+        f"{sys.version_info.minor} "
+        f"required_inputs={len(REQUIRED_SOURCE_FILES)} "
+        f"verdict={result['verdict']}"
+    )
+
+    return 0 if not problems else 1
 
 
 def build() -> int:
-    """Compile Python and validate JSON configuration inputs."""
-    problems: list[str] = []
+    """Compile every Python program and validate JSON inputs."""
+    python_programs = sorted(
+        path
+        for path in (ROOT / "detection-lab").glob("*.py")
+        if path.is_file()
+    )
 
-    for relative_path in PYTHON_PROGRAMS:
-        path = project_path(relative_path)
+    json_inputs = sorted(
+        list((ROOT / "fixtures").glob("*.json"))
+        + list((ROOT / "rules").glob("*.json"))
+    )
+
+    problems = []
+    source_hashes = {}
+
+    for path in python_programs:
+        relative = path.relative_to(ROOT).as_posix()
 
         try:
             py_compile.compile(
                 str(path),
                 doraise=True,
             )
-        except py_compile.PyCompileError as exc:
-            problems.append(
-                f"{relative_path}: {exc.msg}"
-            )
+            source_hashes[relative] = sha256_file(path)
+        except py_compile.PyCompileError as error:
+            problems.append(f"{relative}: {error}")
 
-    for relative_path in JSON_INPUTS:
-        path = project_path(relative_path)
+    for path in json_inputs:
+        relative = path.relative_to(ROOT).as_posix()
 
         try:
-            with path.open("r", encoding="utf-8") as handle:
-                json.load(handle)
+            json.loads(path.read_text(encoding="utf-8"))
+            source_hashes[relative] = sha256_file(path)
         except (
             OSError,
             UnicodeDecodeError,
             json.JSONDecodeError,
-        ) as exc:
-            problems.append(
-                f"{relative_path}: {exc}"
-            )
+        ) as error:
+            problems.append(f"{relative}: {error}")
 
-    source_hashes = {
-        relative_path: sha256_file(project_path(relative_path))
-        for relative_path in sorted(
-            set(PYTHON_PROGRAMS + JSON_INPUTS)
-        )
-        if project_path(relative_path).is_file()
-    }
-
-    result: dict[str, Any] = {
+    report = {
         "schema_version": "1.0",
         "python": {
             "major": sys.version_info.major,
@@ -171,113 +202,130 @@ def build() -> int:
             "micro": sys.version_info.micro,
         },
         "counts": {
-            "python_programs": len(PYTHON_PROGRAMS),
-            "json_inputs": len(JSON_INPUTS),
+            "python_programs": len(python_programs),
+            "json_inputs": len(json_inputs),
             "problems": len(problems),
         },
-        "problems": problems,
-        "source_hashes": source_hashes,
+        "source_hashes": dict(sorted(source_hashes.items())),
+        "problems": sorted(problems),
         "verdict": "pass" if not problems else "fail",
     }
 
-    output_path = project_path(
-        "tests/results/build-validation.json"
+    output = (
+        ROOT / "tests" / "results" / "build-validation.json"
     )
-
-    output_path.parent.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
-
-    output_path.write_text(
-        json.dumps(
-            result,
-            indent=2,
-            sort_keys=True,
-        )
-        + "\n",
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
+        json.dumps(report, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
 
     print(
-        "build"
-        f" python_programs={len(PYTHON_PROGRAMS)}"
-        f" json_inputs={len(JSON_INPUTS)}"
-        f" problems={len(problems)}"
-        f" verdict={result['verdict']}"
+        f"build python_programs={len(python_programs)} "
+        f"json_inputs={len(json_inputs)} "
+        f"problems={len(problems)} "
+        f"verdict={report['verdict']}"
     )
 
     return 0 if not problems else 1
 
 
-def test() -> int:
-    """Run the unattended regression suite."""
-    command = [
-        sys.executable,
-        str(project_path(
-            "detection-lab/run_regression.py"
-        )),
-    ]
+def test(replay: str | None) -> int:
+    """Run either the public suite or complete signed-replay suite."""
+    if replay:
+        replay_path = Path(replay).expanduser().resolve()
 
-    completed = subprocess.run(
-        command,
-        cwd=ROOT,
-        check=False,
+        if not replay_path.is_file():
+            print(f"test replay_not_found={replay_path}")
+            return 1
+
+        return run_command(
+            [
+                PYTHON,
+                "detection-lab/run_full_replay.py",
+                "--replay",
+                str(replay_path),
+                "--output-dir",
+                "tests/results/clean-run",
+                "--summary",
+                "tests/results/clean-run-summary.json",
+            ]
+        )
+
+    print(
+        "test mode=public-only "
+        "note=use --replay for the complete scored workflow"
     )
 
-    return completed.returncode
+    return run_command(
+        [
+            PYTHON,
+            "detection-lab/run_regression.py",
+        ]
+    )
 
 
 def clean() -> int:
-    """Remove only the allowlisted generated outputs."""
-    removed = 0
+    """Remove only documented generated outputs."""
+    removed = []
 
-    for relative_path in GENERATED_OUTPUTS:
-        path = project_path(relative_path)
+    for relative_path in GENERATED_FILES + GENERATED_SUMMARIES:
+        path = ROOT / relative_path
 
         if path.is_file():
             path.unlink()
-            removed += 1
+            removed.append(relative_path)
 
-    print(
-        f"clean removed={removed} verdict=pass"
+    for relative_path in GENERATED_DIRECTORIES:
+        path = ROOT / relative_path
+
+        if path.is_dir():
+            shutil.rmtree(path)
+            removed.append(relative_path)
+
+    cache_directories = sorted(
+        (ROOT / "detection-lab").glob("__pycache__")
     )
 
+    for path in cache_directories:
+        if path.is_dir():
+            shutil.rmtree(path)
+            removed.append(
+                path.relative_to(ROOT).as_posix()
+            )
+
+    result = {
+        "schema_version": "1.0",
+        "removed": sorted(removed),
+        "removed_count": len(removed),
+        "verdict": "pass",
+    }
+
+    output = ROOT / "tests" / "results" / "clean-result.json"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
+        json.dumps(result, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    print(f"clean removed={len(removed)} verdict=pass")
     return 0
 
 
-def parse_args() -> argparse.Namespace:
-    """Read the requested project task."""
-    parser = argparse.ArgumentParser(
-        description="Run a Stage 8 project task."
-    )
-
-    parser.add_argument(
-        "task",
-        choices=[
-            "provision",
-            "build",
-            "test",
-            "clean",
-        ],
-        help="Project task to execute.",
-    )
-
-    return parser.parse_args()
-
-
 def main() -> int:
-    """Dispatch one project task."""
-    args = parse_args()
+    """Dispatch the requested task."""
+    arguments = parse_arguments()
 
-    tasks = {
-        "provision": provision,
-        "build": build,
-        "test": test,
-        "clean": clean,
-    }
+    if arguments.task == "provision":
+        return provision()
 
-    return tasks[args.task]()
+    if arguments.task == "build":
+        return build()
+
+    if arguments.task == "test":
+        return test(arguments.replay)
+
+    return clean()
 
 
 if __name__ == "__main__":

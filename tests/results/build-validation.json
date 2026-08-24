@@ -1,8 +1,8 @@
 {
   "counts": {
-    "json_inputs": 4,
+    "json_inputs": 7,
     "problems": 0,
-    "python_programs": 5
+    "python_programs": 9
   },
   "problems": [],
   "python": {
@@ -12,15 +12,22 @@
   },
   "schema_version": "1.0",
   "source_hashes": {
-    "detection-lab/detection_engine.py": "3977f3681158ab187f53e2212866b7fd5530bf2fec637ca1cc86b821e4421f22",
+    "detection-lab/detection_engine.py": "963b375a83e3bf6c8fae9d91087c401da2ee4b1c9dfefa29299a9ad60a0c7d90",
+    "detection-lab/event_adapter.py": "ed3eb62c1e75a9b3a10796c4a36eff32c23396749fbdda3a0b72db070fa72825",
     "detection-lab/fixture_validator.py": "a5e7a08c71822c597521f6ec9d5db51be96b86730ad0e2d86dc86595b3836bb3",
-    "detection-lab/project_tasks.py": "4aee83ce7e298bf7e76f016eb602d19c47d459b03af145e44acde80d23c19fca",
+    "detection-lab/project_tasks.py": "014fe7a5cfe4db46a9f0a6dcd885f31169bb7a19faa86da5574029376a5950d8",
+    "detection-lab/replay_detector.py": "431931fbc79df6b6eb225145d779ef5a7a3a002572fb5547094ad389db511831",
+    "detection-lab/replay_evaluator.py": "8c3ca9847f00d67c67adb31579368c1bea99284891aff8726e9ede4f4b65c0b7",
     "detection-lab/replay_validator.py": "2ace3bdd02dd34c3093b4f80f0e2581846103b767dcfcbab72c12a75a34f216c",
-    "detection-lab/run_regression.py": "260eb13b88f642c19a11c96d4d715e708791c6ba212ad0ee098ac1f7aa66ab4b",
-    "fixtures/mutation-tests.json": "314bce0f8300e153601eb108131a276663c7898e1cbda557dd4377fdcdd7831b",
+    "detection-lab/run_full_replay.py": "d3325703f1ca808e3a9b706c57ddde1fbf32ce7b7ee8cb56b21eb1188894cb59",
+    "detection-lab/run_regression.py": "60a676b749d9bbb14d6ba9d9d5d2ce06b41d2d951eeda271589ab79208a518a2",
+    "fixtures/benign-holdouts.json": "daf629e3075e8d718dd543fa5457672cc5e7b4fce4fbfb2440c65207df3e59e9",
+    "fixtures/classification-diagnostics.json": "38b427bfe9ea1c40c94061c9b78c4b4bee81f69070b1819cfbaeaeff3c5c88ed",
+    "fixtures/mutation-tests.json": "f272189cd2319c49765ea0f1e93809685c862cc825c4248a257d3cce7cc6e2d8",
     "fixtures/public-fixtures-malformed.json": "fbf59509973bdb507cf8e7f64717ba2ed24aadfa1db17877bb0801636bb5bfdc",
     "fixtures/public-fixtures.json": "f9c6df0810ec03fff387ecce023b8b7d31f5b79edb1379e676e063031845f02e",
-    "rules/behavior-policy.json": "3cd4b8f5016620d0888e3bf934204e93b629c9b49213cedf8bb34dd0d9137325"
+    "rules/behavior-policy.json": "3cd4b8f5016620d0888e3bf934204e93b629c9b49213cedf8bb34dd0d9137325",
+    "rules/replay-policy.json": "df092a655171deda6c6b496d10963171fddaf4a1d0ae8c3793c4bc2a4cffe017"
   },
   "verdict": "pass"
 }
