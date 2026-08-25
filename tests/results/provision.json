@@ -6,7 +6,7 @@
     "micro": 3,
     "minor": 12
   },
-  "required_input_count": 18,
+  "required_input_count": 19,
   "schema_version": "1.0",
   "verdict": "pass"
 }

@@ -2,7 +2,7 @@
   "counts": {
     "json_inputs": 7,
     "problems": 0,
-    "python_programs": 9
+    "python_programs": 10
   },
   "problems": [],
   "python": {
@@ -14,8 +14,9 @@
   "source_hashes": {
     "detection-lab/detection_engine.py": "963b375a83e3bf6c8fae9d91087c401da2ee4b1c9dfefa29299a9ad60a0c7d90",
     "detection-lab/event_adapter.py": "ed3eb62c1e75a9b3a10796c4a36eff32c23396749fbdda3a0b72db070fa72825",
+    "detection-lab/evidence_exporter.py": "6e4a2f045fb2f8b865e943af7767e931da077b667e4d33e36fb8a1cd9de86cda",
     "detection-lab/fixture_validator.py": "a5e7a08c71822c597521f6ec9d5db51be96b86730ad0e2d86dc86595b3836bb3",
-    "detection-lab/project_tasks.py": "014fe7a5cfe4db46a9f0a6dcd885f31169bb7a19faa86da5574029376a5950d8",
+    "detection-lab/project_tasks.py": "d75a654a20127c398c59c882f3d37958dfc90521726cc142a882f627369ab002",
     "detection-lab/replay_detector.py": "431931fbc79df6b6eb225145d779ef5a7a3a002572fb5547094ad389db511831",
     "detection-lab/replay_evaluator.py": "8c3ca9847f00d67c67adb31579368c1bea99284891aff8726e9ede4f4b65c0b7",
     "detection-lab/replay_validator.py": "2ace3bdd02dd34c3093b4f80f0e2581846103b767dcfcbab72c12a75a34f216c",

@@ -9,7 +9,6 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +18,7 @@ MINIMUM_PYTHON = (3, 11)
 REQUIRED_SOURCE_FILES = [
     "detection-lab/detection_engine.py",
     "detection-lab/event_adapter.py",
+    "detection-lab/evidence_exporter.py",
     "detection-lab/fixture_validator.py",
     "detection-lab/project_tasks.py",
     "detection-lab/replay_detector.py",
@@ -41,20 +41,20 @@ GENERATED_FILES = [
     "regression-results.xml",
     "raw-events/normalized-candidates.jsonl",
     "raw-events/source-accounting.json",
+    "raw-events/assigned-source-events.jsonl",
+    "raw-events/raw-artifact-manifest.json",
     "alerts/replay-alerts.jsonl",
     "alerts/replay-decisions.jsonl",
     "alerts/replay-summary.json",
 ]
 
+# Only the active clean-run is removed by the clean command.
+# full-run-one and full-run-two are retained comparison evidence.
 GENERATED_DIRECTORIES = [
-    "tests/results/full-run-one",
-    "tests/results/full-run-two",
     "tests/results/clean-run",
 ]
 
 GENERATED_SUMMARIES = [
-    "tests/results/full-run-one-summary.json",
-    "tests/results/full-run-two-summary.json",
     "tests/results/clean-run-summary.json",
 ]
 
@@ -96,7 +96,7 @@ def source_path(relative_path: str) -> Path:
 
 
 def run_command(arguments: list[str]) -> int:
-    """Run a child command with visible output."""
+    """Run one child command with visible output."""
     completed = subprocess.run(
         arguments,
         cwd=ROOT,
@@ -136,10 +136,23 @@ def provision() -> int:
         "verdict": "pass" if not problems else "fail",
     }
 
-    output = ROOT / "tests" / "results" / "provision.json"
-    output.parent.mkdir(parents=True, exist_ok=True)
+    output = (
+        ROOT
+        / "tests"
+        / "results"
+        / "provision.json"
+    )
+    output.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
     output.write_text(
-        json.dumps(result, indent=2, sort_keys=True) + "\n",
+        json.dumps(
+            result,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
         encoding="utf-8",
     )
 
@@ -185,7 +198,9 @@ def build() -> int:
         relative = path.relative_to(ROOT).as_posix()
 
         try:
-            json.loads(path.read_text(encoding="utf-8"))
+            json.loads(
+                path.read_text(encoding="utf-8")
+            )
             source_hashes[relative] = sha256_file(path)
         except (
             OSError,
@@ -206,17 +221,30 @@ def build() -> int:
             "json_inputs": len(json_inputs),
             "problems": len(problems),
         },
-        "source_hashes": dict(sorted(source_hashes.items())),
+        "source_hashes": dict(
+            sorted(source_hashes.items())
+        ),
         "problems": sorted(problems),
         "verdict": "pass" if not problems else "fail",
     }
 
     output = (
-        ROOT / "tests" / "results" / "build-validation.json"
+        ROOT
+        / "tests"
+        / "results"
+        / "build-validation.json"
     )
-    output.parent.mkdir(parents=True, exist_ok=True)
+    output.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
     output.write_text(
-        json.dumps(report, indent=2, sort_keys=True) + "\n",
+        json.dumps(
+            report,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
         encoding="utf-8",
     )
 
@@ -232,44 +260,122 @@ def build() -> int:
 
 def test(replay: str | None) -> int:
     """Run either the public suite or complete signed-replay suite."""
-    if replay:
-        replay_path = Path(replay).expanduser().resolve()
-
-        if not replay_path.is_file():
-            print(f"test replay_not_found={replay_path}")
-            return 1
+    if not replay:
+        print(
+            "test mode=public-only "
+            "note=use --replay for the complete scored workflow"
+        )
 
         return run_command(
             [
                 PYTHON,
-                "detection-lab/run_full_replay.py",
-                "--replay",
-                str(replay_path),
-                "--output-dir",
-                "tests/results/clean-run",
-                "--summary",
-                "tests/results/clean-run-summary.json",
+                "detection-lab/run_regression.py",
             ]
         )
 
-    print(
-        "test mode=public-only "
-        "note=use --replay for the complete scored workflow"
-    )
+    replay_path = Path(replay).expanduser().resolve()
 
-    return run_command(
+    if not replay_path.is_file():
+        print(f"test replay_not_found={replay_path}")
+        return 1
+
+    full_run_exit = run_command(
         [
             PYTHON,
-            "detection-lab/run_regression.py",
+            "detection-lab/run_full_replay.py",
+            "--replay",
+            str(replay_path),
+            "--output-dir",
+            "tests/results/clean-run",
+            "--summary",
+            "tests/results/clean-run-summary.json",
         ]
     )
 
+    if full_run_exit != 0:
+        return full_run_exit
+
+    clean_run = (
+        ROOT
+        / "tests"
+        / "results"
+        / "clean-run"
+    )
+
+    canonical_copies = {
+        clean_run / "normalized-candidates.jsonl":
+            ROOT
+            / "raw-events"
+            / "normalized-candidates.jsonl",
+
+        clean_run / "source-accounting.json":
+            ROOT
+            / "raw-events"
+            / "source-accounting.json",
+
+        clean_run / "replay-decisions.jsonl":
+            ROOT
+            / "alerts"
+            / "replay-decisions.jsonl",
+
+        clean_run / "replay-alerts.jsonl":
+            ROOT
+            / "alerts"
+            / "replay-alerts.jsonl",
+
+        clean_run / "replay-summary.json":
+            ROOT
+            / "alerts"
+            / "replay-summary.json",
+    }
+
+    for source, destination in canonical_copies.items():
+        if not source.is_file():
+            print(
+                "test missing_generated_output="
+                f"{source.relative_to(ROOT)}"
+            )
+            return 1
+
+        destination.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+        shutil.copyfile(
+            source,
+            destination,
+        )
+
+    export_exit = run_command(
+        [
+            PYTHON,
+            "detection-lab/evidence_exporter.py",
+            "--replay",
+            str(replay_path),
+            "--evaluation",
+            "tests/results/clean-run/replay-evaluation.json",
+            "--raw-output",
+            "raw-events/assigned-source-events.jsonl",
+            "--manifest-output",
+            "raw-events/raw-artifact-manifest.json",
+        ]
+    )
+
+    return export_exit
+
 
 def clean() -> int:
-    """Remove only documented generated outputs."""
+    """Remove only documented active generated outputs."""
     removed = []
 
-    for relative_path in GENERATED_FILES + GENERATED_SUMMARIES:
+    for relative_path in GENERATED_FILES:
+        path = ROOT / relative_path
+
+        if path.is_file():
+            path.unlink()
+            removed.append(relative_path)
+
+    for relative_path in GENERATED_SUMMARIES:
         path = ROOT / relative_path
 
         if path.is_file():
@@ -301,14 +407,31 @@ def clean() -> int:
         "verdict": "pass",
     }
 
-    output = ROOT / "tests" / "results" / "clean-result.json"
-    output.parent.mkdir(parents=True, exist_ok=True)
+    output = (
+        ROOT
+        / "tests"
+        / "results"
+        / "clean-result.json"
+    )
+    output.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
     output.write_text(
-        json.dumps(result, indent=2, sort_keys=True) + "\n",
+        json.dumps(
+            result,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
         encoding="utf-8",
     )
 
-    print(f"clean removed={len(removed)} verdict=pass")
+    print(
+        f"clean removed={len(removed)} "
+        "verdict=pass"
+    )
+
     return 0
 
 
