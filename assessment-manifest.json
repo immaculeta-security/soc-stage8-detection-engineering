@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "project_id": "SOC-A4",
+  "variant": "D3",
+  "candidate_binding": "UBI-2026-0004",
+  "assigned_pack": {
+    "file_name": "soc-analysis-stage-8-shared-b2.tar.gz",
+    "sha256": "75c476baac8b1c123522006e53053f766bd36baad4e3238223da67e12a53843c",
+    "manifest_signature": "6e7916325bcc10f4039bdba57524c1ac86c06a04ad4bf7a333e3778de1d7444a",
+    "verified_before_use": true
+  },
+  "commit": "a69f8fd0648a8dce66562611df9fffffb290b26e",
+  "supported_environment": {
+    "os": "Ubuntu 24.04.4 LTS, Linux 7.0.0-30-generic, x86_64",
+    "cpu": "2 logical processors",
+    "memory_gb": 3.8,
+    "tool_versions": {
+      "python": "3.12.3",
+      "git": "2.43.0"
+    }
+  },
+  "commands": {
+    "provision": "python3 detection-lab/project_tasks.py provision",
+    "build": "python3 detection-lab/project_tasks.py build",
+    "test": "python3 detection-lab/project_tasks.py test --replay /home/immaculeta/ubi-stage8/source/b2/unpacked/evidence/sealed-evidence/evidence/windows-replay.jsonl",
+    "clean": "python3 detection-lab/project_tasks.py clean"
+  },
+  "results": {
+    "public_tests": {
+      "passed": 66,
+      "failed": 0,
+      "report": "tests/results/clean-run/regression-results.xml"
+    },
+    "runtime_seconds": 19.46,
+    "peak_memory_mb": 19.91,
+    "output_hashes": {
+      "tests/results/clean-run-summary.json": "25b5f9bc5cfa3ffa342f647b11761a99eefc157859932614e55d1c3a22b3d8d1",
+      "tests/results/clean-run/normalized-candidates.jsonl": "8afdfa4c9759ab14a6dd0a970e2c5160a18d4267ad4f689d0756f8d75b93e87e",
+      "tests/results/clean-run/source-accounting.json": "fa9864cfa8b961d9f0cbe85c2c30f70dc9c8b3003d930c9763e972e7587f6524",
+      "tests/results/clean-run/replay-decisions.jsonl": "8ecd8b48ff597ef43ef5b6fc523ef43397b4e9a2e7d9ae14245390cf147ff09d",
+      "tests/results/clean-run/replay-alerts.jsonl": "8ecd8b48ff597ef43ef5b6fc523ef43397b4e9a2e7d9ae14245390cf147ff09d",
+      "tests/results/clean-run/replay-summary.json": "15df1637e71492570f24fd2487796d2e2f6270e7ba36c30d421a68760324e41b",
+      "tests/results/clean-run/replay-evaluation.json": "e31031f87d2087149979f9fa8b2d362c45bf768a26fa231cb2a21ac68e2b4ca5",
+      "tests/results/clean-run/regression-results.xml": "04ddb042669702527bfa9cc8f05f789dab13359b2c47af9ba5a56a188c931393",
+      "raw-events/assigned-source-events.jsonl": "a62776ea31d32da59354e0393754dc9bc994961c13dee840abb1821c2e3dbd04",
+      "raw-events/raw-artifact-manifest.json": "40b987cabc1951c366d305b2ead540ad23acf48ab456526a1cdecd3e3d67a099",
+      "coverage-matrix.csv": "18493f916e99cb7e3f07a2a2fef2d4a37d2e75547179de36ff842b13c921e984",
+      "integrity-attestation.md": "c9fa8d06e70d0472d3b908e45bf4f9ada8a61bc1ac59ee9b81a5033970fa69d1"
+    }
+  },
+  "inputs": [
+    "assigned B2 windows-replay.jsonl",
+    "fixtures/public-fixtures.json",
+    "fixtures/public-fixtures-malformed.json",
+    "fixtures/replay-smoke.jsonl",
+    "fixtures/replay-malformed.jsonl",
+    "fixtures/mutation-tests.json",
+    "fixtures/benign-holdouts.json",
+    "fixtures/classification-diagnostics.json",
+    "rules/behavior-policy.json",
+    "rules/replay-policy.json"
+  ],
+  "outputs": [
+    "raw-events/source-accounting.json",
+    "raw-events/normalized-candidates.jsonl",
+    "raw-events/assigned-source-events.jsonl",
+    "raw-events/raw-artifact-manifest.json",
+    "alerts/replay-decisions.jsonl",
+    "alerts/replay-alerts.jsonl",
+    "alerts/replay-summary.json",
+    "tests/results/clean-run/replay-evaluation.json",
+    "tests/results/clean-run/regression-results.xml",
+    "tests/results/clean-run-summary.json",
+    "coverage-matrix.csv",
+    "evidence-index.csv"
+  ],
+  "manual_preconditions": [
+    "Run all commands from the submission root.",
+    "Provide Python 3.11 or newer.",
+    "Extract the verified assigned B2 archive outside the repository and pass the immutable windows-replay.jsonl path to the test command.",
+    "The documented test command uses the candidate's verified local replay path; on another clean host, replace only that absolute replay path with the verified assigned replay location."
+  ],
+  "known_limitations": [
+    "The issued replay contains 12 labelled assigned events representing six unique matrix techniques twice; six additional required matrix techniques have no labelled canonical attack event in the issued replay.",
+    "Unsupported matrix rows are reported as no_telemetry or source-coverage gaps and are not represented as successful detections.",
+    "Passing submitted public, mutation and benign-holdout tests does not guarantee that every undisclosed fixture will pass.",
+    "Runtime and peak-memory measurements were collected on the documented Ubuntu environment and can vary on another supported host."
+  ]
+}
