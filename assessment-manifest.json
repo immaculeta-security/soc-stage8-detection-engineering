@@ -9,7 +9,7 @@
     "manifest_signature": "6e7916325bcc10f4039bdba57524c1ac86c06a04ad4bf7a333e3778de1d7444a",
     "verified_before_use": true
   },
-  "commit": "a69f8fd0648a8dce66562611df9fffffb290b26e",
+  "commit": "5d9bc6bad215405cbb989739e759ee40dda20eb6",
   "supported_environment": {
     "os": "Ubuntu 24.04.4 LTS, Linux 7.0.0-30-generic, x86_64",
     "cpu": "2 logical processors",
@@ -45,7 +45,10 @@
       "raw-events/assigned-source-events.jsonl": "a62776ea31d32da59354e0393754dc9bc994961c13dee840abb1821c2e3dbd04",
       "raw-events/raw-artifact-manifest.json": "40b987cabc1951c366d305b2ead540ad23acf48ab456526a1cdecd3e3d67a099",
       "coverage-matrix.csv": "18493f916e99cb7e3f07a2a2fef2d4a37d2e75547179de36ff842b13c921e984",
-      "integrity-attestation.md": "c9fa8d06e70d0472d3b908e45bf4f9ada8a61bc1ac59ee9b81a5033970fa69d1"
+      "integrity-attestation.md": "c9fa8d06e70d0472d3b908e45bf4f9ada8a61bc1ac59ee9b81a5033970fa69d1",
+      "evidence-index.csv": "fcc9efeb742225153282d78b7cd5f7315c45dc4ccad4b62693e7ff3402d90030",
+      "tests/rule-test-records.md": "11e0374bda5ded6ee029d8f2adf04d17779cc1ea6f73d5c5323a7c0ed99d6345",
+      "decoders/README.md": "f9575a62b24f9fb60eb12b4dbc0d0dd17cf2ab0c211001537392811eca4ed475"
     }
   },
   "inputs": [
@@ -72,7 +75,9 @@
     "tests/results/clean-run/regression-results.xml",
     "tests/results/clean-run-summary.json",
     "coverage-matrix.csv",
-    "evidence-index.csv"
+    "evidence-index.csv",
+    "tests/rule-test-records.md",
+    "decoders/README.md"
   ],
   "manual_preconditions": [
     "Run all commands from the submission root.",
