@@ -3,7 +3,6 @@
     "alerts/replay-alerts.jsonl",
     "alerts/replay-decisions.jsonl",
     "alerts/replay-summary.json",
-    "detection-lab/__pycache__",
     "raw-events/assigned-source-events.jsonl",
     "raw-events/normalized-candidates.jsonl",
     "raw-events/raw-artifact-manifest.json",
@@ -12,7 +11,7 @@
     "tests/results/clean-run",
     "tests/results/clean-run-summary.json"
   ],
-  "removed_count": 11,
+  "removed_count": 10,
   "schema_version": "1.0",
   "verdict": "pass"
 }

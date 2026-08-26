@@ -396,9 +396,6 @@ def clean() -> int:
     for path in cache_directories:
         if path.is_dir():
             shutil.rmtree(path)
-            removed.append(
-                path.relative_to(ROOT).as_posix()
-            )
 
     result = {
         "schema_version": "1.0",
