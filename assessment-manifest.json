@@ -9,7 +9,7 @@
     "manifest_signature": "6e7916325bcc10f4039bdba57524c1ac86c06a04ad4bf7a333e3778de1d7444a",
     "verified_before_use": true
   },
-  "commit": "5d9bc6bad215405cbb989739e759ee40dda20eb6",
+  "commit": "f5041ad16af453332abbc6897abe7f23b768f6a6",
   "supported_environment": {
     "os": "Ubuntu 24.04.4 LTS, Linux 7.0.0-30-generic, x86_64",
     "cpu": "2 logical processors",
