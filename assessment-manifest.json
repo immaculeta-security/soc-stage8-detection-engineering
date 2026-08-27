@@ -48,7 +48,8 @@
       "integrity-attestation.md": "c9fa8d06e70d0472d3b908e45bf4f9ada8a61bc1ac59ee9b81a5033970fa69d1",
       "evidence-index.csv": "fcc9efeb742225153282d78b7cd5f7315c45dc4ccad4b62693e7ff3402d90030",
       "tests/rule-test-records.md": "11e0374bda5ded6ee029d8f2adf04d17779cc1ea6f73d5c5323a7c0ed99d6345",
-      "decoders/README.md": "f9575a62b24f9fb60eb12b4dbc0d0dd17cf2ab0c211001537392811eca4ed475"
+      "decoders/README.md": "f9575a62b24f9fb60eb12b4dbc0d0dd17cf2ab0c211001537392811eca4ed475",
+      "video-url.txt": "551619304adf385da253fcf7c6a5a478bb524f5700e54f4d4ddc8781f5ff15f7"
     }
   },
   "inputs": [
@@ -77,7 +78,8 @@
     "coverage-matrix.csv",
     "evidence-index.csv",
     "tests/rule-test-records.md",
-    "decoders/README.md"
+    "decoders/README.md",
+    "video-url.txt"
   ],
   "manual_preconditions": [
     "Run all commands from the submission root.",
