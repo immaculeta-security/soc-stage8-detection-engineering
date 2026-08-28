@@ -30,7 +30,7 @@ a62776ea31d32da59354e0393754dc9bc994961c13dee840abb1821c2e3dbd04  ./raw-events/a
 8afdfa4c9759ab14a6dd0a970e2c5160a18d4267ad4f689d0756f8d75b93e87e  ./raw-events/normalized-candidates.jsonl
 40b987cabc1951c366d305b2ead540ad23acf48ab456526a1cdecd3e3d67a099  ./raw-events/raw-artifact-manifest.json
 fa9864cfa8b961d9f0cbe85c2c30f70dc9c8b3003d930c9763e972e7587f6524  ./raw-events/source-accounting.json
-d4d69638eb6168adea3fdf83b615b66e5745e5b257085c31d88cb10499f17bff  ./README.md
+5ab66cc3e887b17c3cc408b91b97e9f6922ed14155d151e958a7cb37108b8143  ./README.md
 04ddb042669702527bfa9cc8f05f789dab13359b2c47af9ba5a56a188c931393  ./regression-results.xml
 3cd4b8f5016620d0888e3bf934204e93b629c9b49213cedf8bb34dd0d9137325  ./rules/behavior-policy.json
 df092a655171deda6c6b496d10963171fddaf4a1d0ae8c3793c4bc2a4cffe017  ./rules/replay-policy.json
