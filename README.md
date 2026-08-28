@@ -458,3 +458,7 @@ code review, command construction, debugging, and documentation support. All
 commands were run by the candidate, outputs were checked against local
 artifacts, and the candidate remains responsible for every claim and for
 reproducing the project during defense.
+
+## Repository
+
+Repository URL: https://github.com/immaculeta-security/soc-stage8-detection-engineering
